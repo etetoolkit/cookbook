@@ -2,7 +2,7 @@
 ### Command line tools
 
 - Building gene family trees
-  - [Building your first phylogeny](ete_build_basics.ipynb)
+  - [Building your first phylogeny](notebooks/ete_build_basics.ipynb)
   - Computing trees using evolutionary model selection
 - Bulding species trees 
   - Gene concatenation approaches
