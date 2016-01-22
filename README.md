@@ -35,5 +35,7 @@ the planned topics follows:
 
 - Phylostatigraphic methods
 
+- Interoperability
+  - [with scikit-bio](recipes/ete3_skbio_integration.ipynb)
 
 (Contributions are very welcome!)
