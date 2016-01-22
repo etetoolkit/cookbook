@@ -26,16 +26,11 @@ the planned topics follows:
 ### ete3 API 
 
 - Tree rooting
-
 - Tree visualization
-
 - Tree comparison
-
 - Orthology prediction
-
 - Phylostatigraphic methods
-
 - Interoperability
-  - [with scikit-bio](recipes/ete3_skbio_integration.ipynb)
+ - [with scikit-bio](recipes/ete3_skbio_integration.ipynb)
 
 (Contributions are very welcome!)
