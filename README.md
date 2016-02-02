@@ -5,8 +5,7 @@ This is a work in progress, feel free to contribute or suggest more examples.
 
 A general scheme of planned topics follows:
 
-##Content
-### Command line tools
+## Command line tools
 - **Tree building (ete3 build)**
  - **Building gene family trees**
    - [Building your first phylogeny](recipes/ete_build_basics.ipynb)
@@ -21,7 +20,7 @@ A general scheme of planned topics follows:
  
 - **Tree comparison**
 
-### ete3 API 
+## Python API (ete3) 
 - Tree rooting
 - Tree visualization
 - Tree comparison
