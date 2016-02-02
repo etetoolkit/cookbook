@@ -16,7 +16,7 @@ A general scheme of planned topics follows:
  - General tips for masive generation of trees (i.e. HPC environments, clusters, NFS disks, etc.)
 
 - **Test evolutionary hypotheses (ete3 evol)**
- - [Reproducing the lysozyme analysis from Yang (MBE, 1998)](ete3_evol_lysozyme.ipynb)
+ - [Reproducing the lysozyme analysis from Yang (MBE, 1998)](recipes/ete3_evol_lysozyme.ipynb)
  
 - **Tree comparison**
 
