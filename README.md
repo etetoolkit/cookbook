@@ -1,16 +1,13 @@
-This reposotory is meant to host small recipes to perform different tasks in phylogenomics, phyloinformatics, comparative genomics.  
+This reposotory is meant to host recipes to perform different tasks in
+phylogenomics, phyloinformatics and comparative genomics using the ETE toolkit.
 
-The idea is to compile a collection of real case analyses which I use regularly
-or examples developed to provide support to the etetoolkit users. So far
-the content is very limitted, but more recipes will be added soon. A general scheme on
-the planned topics follows:
+This is a work in progress, feel free to contribute or suggest more examples.
 
-
+A general scheme of planned topics follows:
 
 ##Content
 ### Command line tools
-
--Tree building
+- Tree building (ete3 build)
  - Building gene family trees
    - [Building your first phylogeny](recipes/ete_build_basics.ipynb)
    - Running multiple workflows at once
@@ -19,12 +16,14 @@ the planned topics follows:
    - Gene concatenation approaches
  - General tips for masive generation of trees (i.e. HPC environments, clusters, NFS disks, etc.)
 
+- Test evolutionary hypotheses (ete3 evol)
+ - [Reproducing the lysozyme analysis from Yang (MBE, 1998)](ete3_evol_lysozyme.ipynb)
+ 
 - Tree comparison
 
 - Tree visualization
 
 ### ete3 API 
-
 - Tree rooting
 - Tree visualization
 - Tree comparison
@@ -33,4 +32,3 @@ the planned topics follows:
 - Interoperability
  - [with scikit-bio](recipes/ete3_skbio_integration.ipynb)
 
-(Contributions are very welcome!)
