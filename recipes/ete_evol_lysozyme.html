@@ -202,7 +202,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre>%%bash
@@ -276,7 +276,7 @@ cat data/lysozyme/lysozymeSmall.ctl
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre>%%bash
@@ -340,8 +340,10 @@ ete3 evol --codeml_config_file data/lysozyme/lysozymeSmall.ctl
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>
-RUNNING CODEML/SLR
+<pre>Using: /Users/fransua/.miniconda2/bin/ete3_apps/bin/Slr
+Using: /Users/fransua/.miniconda2/bin/ete3_apps/bin/codeml
+
+Running CodeML/Slr (1 CPUs)
   - processing model XX.lysozymeSmall.ctl
 </pre>
 </div>
@@ -363,7 +365,7 @@ RUNNING CODEML/SLR
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre>%%bash
@@ -422,7 +424,7 @@ tree
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre>%%bash
@@ -458,7 +460,7 @@ Time used:  0:04
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>On top of this, the ete_evol tool will generate a summary image 
-<img src="data/lysozyme/mlc/tree_None.png"></p>
+<img src="data/lysozyme/tree_evol_example1.png"></p>
 
 </div>
 </div>
@@ -475,11 +477,11 @@ Time used:  0:04
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre>%%bash
-ete3 evol --codeml_config_file data/lysozyme/lysozymeSmall.ctl --view
+ete3 evol --codeml_config_file data/lysozyme/lysozymeSmall.ctl --view --resume
 </pre></div>
 
 </div>
@@ -492,17 +494,12 @@ ete3 evol --codeml_config_file data/lysozyme/lysozymeSmall.ctl --view
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>
-RUNNING CODEML/SLR
-  - processing model XX.lysozymeSmall.ctl
-</pre>
-</div>
-</div>
+<pre>Using: /Users/fransua/.miniconda2/bin/ete3_apps/bin/Slr
+Using: /Users/fransua/.miniconda2/bin/ete3_apps/bin/codeml
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/fransua/Box/ete3/ete3/tools/ete_evol.py:398: UserWarning: Model XX.lysozymeSmall.ctl already runned... skipping
-  warn(&apos;Model %s already runned... skipping&apos; % modmodel)
+Running CodeML/Slr (1 CPUs)
+  - processing model XX.lysozymeSmall.ctl
+Model XX.lysozymeSmall.ctl already executed... SKIPPING
 </pre>
 </div>
 </div>
