@@ -387,14 +387,14 @@ trimal_gappyout | trimal   | trimal alignment cleaning using gappyout algorithm
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>There are currently 4 types of applications that can be used to create a workflow: <strong>aligners, alignment trimmers, model testers and tree builders.</strong></p>
-<p>A custom worflow name can be create using the following format:</p>
+<p>A custom worflow name can be created using the following format:</p>
 
 <pre><code>aligner-trimmer-tester-builder</code></pre>
-<p>Where each word represents a valid name from the list of available application bindings. For instance, a valid workflow names would be:</p>
+<p>Where each word separated by "-" represents a valid name from the list of available application bindings. For instance, a valid workflow names would be:</p>
 
 <pre><code>mafft_linsi-trimal01-pmodeltest_soft_ultrafast-raxml_default</code></pre>
 <p>The word <em><code>none</code></em> is also allowed to indicate that a step should be ignored.</p>
-<p>Any workflow following such format can be passed with the <code>-w</code> option to <code>ete-build</code>. The list of available workflows is fact a list of aliases to real workflow names. For instance,</p>
+<p>Any workflow name following such format can be passed with the <code>-w</code> option to <code>ete-build</code>. The list of available workflows produced by <code>ete3 build workflows</code> is in fact a list of aliases to real workflow names. For instance,</p>
 <p><code>standard_fasttree</code>, <strong>translates into</strong> <code>clustalo_default-none-none-fasttree_default</code></p>
 
 </div>
@@ -405,7 +405,8 @@ trimal_gappyout | trimal   | trimal alignment cleaning using gappyout algorithm
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="3.-Run-your-preferred-workflow">3. Run your preferred workflow<a class="anchor-link" href="#3.-Run-your-preferred-workflow">&#182;</a></h3>
+<h3 id="3.-Run-your-preferred-workflow">3. Run your preferred workflow<a class="anchor-link" href="#3.-Run-your-preferred-workflow">&#182;</a></h3><p>Once you understand how workflow names, you can compose your own pipeline of programs and run it through <code>ete-build</code>.</p>
+
 </div>
 </div>
 </div>
