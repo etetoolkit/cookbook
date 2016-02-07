@@ -1,7 +1,7 @@
 
 
 <head><meta charset="utf-8" />
-<title>ete_evol_lysozyme</title>
+<title>ete_build_new_workflows</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -174,17 +174,13 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Reproduce-codeml-analysis-from-Yang-Z-(MBE,-1998)">Reproduce codeml analysis from Yang Z (MBE, 1998)<a class="anchor-link" href="#Reproduce-codeml-analysis-from-Yang-Z-(MBE,-1998)">&#182;</a></h1><p>This recipe shows how to reproduce the analysis carried out in <a href="http://www.ncbi.nlm.nih.gov/pubmed/9580986">Yang Z (MBE, 1998)</a> using <code>ete-evol</code>. The data files are extracted from the examples in the PAML package, small dataset will be used:</p>
-<p><img src="data/lysozyme/Lysozyme_small_tree.png"></p>
-<p>The files that we are going to use for this example are:</p>
-<ul>
-<li>data/lysozyme/lysozymeSmall.txt</li>
-<li>data/lysozyme/lysozymeSmall.trees</li>
-<li>data/lysozyme/lysozymeSmall.ctl</li>
-</ul>
+<h1 id="Creating-new-workflows-and-application-bindings">Creating new workflows and application bindings<a class="anchor-link" href="#Creating-new-workflows-and-application-bindings">&#182;</a></h1><p>This recipe shows how create new application bindings to create new workflows.</p>
+<p><code>ete-build</code> comes with a number of pre-configured applications, which are meant to cover default options of the supported software and some common approaches. Here you will learn how to create custom configurations that you can use in workflows.</p>
 <h2 id="Requirements">Requirements<a class="anchor-link" href="#Requirements">&#182;</a></h2><ul>
 <li>ete3</li>
-<li>ete3_external_tools</li>
+<li>ete3_external_apps</li>
+<li><a href="ete_build_basics.ipynb">basic concepts about ete-build</a> </li>
+<li><a href="ete_build_workflows.ipynb">composing custom workflows</a></li>
 </ul>
 
 </div>
@@ -195,18 +191,21 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="1.-Run-PAML-example-as-is">1. Run PAML example as is<a class="anchor-link" href="#1.-Run-PAML-example-as-is">&#182;</a></h1><p>ete_evol tools allows to run directly CodeML using PAML configuration file.</p>
+<h2 id="Recipe">Recipe<a class="anchor-link" href="#Recipe">&#182;</a></h2><h3 id="1.-Configuring-external-software-calls">1. Configuring external software calls<a class="anchor-link" href="#1.-Configuring-external-software-calls">&#182;</a></h3><p>In <a href="ete_build_workflows.ipynb">composing custom workflows</a>, you learnt how to refer to the different preconfigured options in <code>ete-build</code>.</p>
+<p>You can explore the details of any application binding (or even workflow) by using the <code>ete3 build build show [blockname]</code>.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre>%%bash
-cat data/lysozyme/lysozymeSmall.ctl
+ete3 build show raxml_default
+ete3 build show phyml_default
+ete3 build show mafft_linsi
 </pre></div>
 
 </div>
@@ -219,89 +218,35 @@ cat data/lysozyme/lysozymeSmall.ctl
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>      seqfile = lysozymeSmall.txt
-     treefile = lysozymeSmall.trees
-      outfile = mlc
+<pre><span class="ansiyellow">[raxml_default]</span>
+<span class="ansiyellow">                              _desc</span> = RAxML with default parameters, GAMMA JTT/GTR and aLRT branch supports.
+<span class="ansiblue">                               _app = raxml</span>
+<span class="ansiyellow">                         _bootstrap</span> = alrt
+<span class="ansiyellow">                            _method</span> = GAMMA
+<span class="ansiyellow">                          _aa_model</span> = JTT
+<span class="ansiyellow">                      _model_suffix</span> = 
+<span class="ansiyellow">                                 -f</span> = d
+<span class="ansiyellow">                                 -p</span> = 31416
 
-        noisy = 9   * 0,1,2,3,9: how much rubbish on the screen
-      verbose = 1   * 1: detailed output, 0: concise output
-      runmode = 0   * 0: user tree;  1: semi-automatic;  2: automatic
-                    * 3: StepwiseAddition; (4,5):PerturbationNNI 
+<span class="ansiyellow">[phyml_default]</span>
+<span class="ansiyellow">                              _desc</span> = Phyml tree using +G+I+F, 4 classes and aLRT branch supports. Default models JTT/GTR
+<span class="ansiblue">                               _app = phyml</span>
+<span class="ansiyellow">                          _aa_model</span> = JTT
+<span class="ansiyellow">                          _nt_model</span> = GTR
+<span class="ansiyellow">                  --no_memory_check</span> = 
+<span class="ansiyellow">                            --quiet</span> = 
+<span class="ansiyellow">                             --pinv</span> = e
+<span class="ansiyellow">                            --alpha</span> = e
+<span class="ansiyellow">                         --nclasses</span> = 4
+<span class="ansiyellow">                                 -o</span> = tlr
+<span class="ansiyellow">                                 -f</span> = m
+<span class="ansiyellow">                        --bootstrap</span> = -2
 
-      seqtype = 1   * 1:codons; 2:AAs; 3:codons--&gt;AAs
-    CodonFreq = 2   * 0:1/61 each, 1:F1X4, 2:F3X4, 3:codon table
-        clock = 0   * 0: no clock, unrooted tree, 1: clock, rooted tree
-        model = 2
-                    * models for codons:
-                        * 0:one, 1:b, 2:2 or more dN/dS ratios for branches
-
-      NSsites = 0   * dN/dS among sites. 0:no variation, 1:neutral, 2:positive
-        icode = 0   * 0:standard genetic code; 1:mammalian mt; 2-10:see below
-
-    fix_kappa = 0   * 1: kappa fixed, 0: kappa to be estimated
-        kappa = 2   * initial or fixed kappa
-    fix_omega = 0   * 1: omega or omega_1 fixed, 0: estimate 
-        omega = 2   * initial or fixed omega, for codons or codon-transltd AAs
-
-    fix_alpha = 1   * 0: estimate gamma shape parameter; 1: fix it at alpha
-        alpha = .0  * initial or fixed alpha, 0:infinity (constant rate)
-       Malpha = 0   * different alphas for genes
-        ncatG = 4   * # of categories in the dG or AdG models of rates
-
-        getSE = 0   * 0: don&apos;t want them, 1: want S.E.s of estimates
- RateAncestor = 0   * (1/0): rates (alpha&gt;0) or ancestral states (alpha=0)
-       method = 0   * 0: simultaneous; 1: one branch at a time
-
-
-* Specifications for duplicating results for the small data set in table 1
-* of Yang (1998 MBE 15:568-573).
-* see the tree file lysozyme.trees for specification of node (branch) labels
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The configuration file above corresponds to a branch model where marked branches are allowed to evolve at different $\omega$ rate than non-marked branches. In this example from PAML, the branch marked is the branch <em>c</em> (the ancestor of Angolan colobus and Douc langur). See the tree in the PAML example:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre>%%bash
-head data/lysozyme/lysozymeSmall.trees
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>    1
-
-
-((Hsa_Human, Hla_gibbon),((Cgu/Can_colobus, Pne_langur) &apos;#1&apos;, Mmu_rhesus), (Ssc_squirrelM, Cja_marmoset)); / * table 1B&amp;F */
-
-
-// end of file
-
-
+<span class="ansiyellow">[mafft_linsi]</span>
+<span class="ansiyellow">                              _desc</span> = mafft alignment using the L-INS-i mode
+<span class="ansiblue">                               _app = mafft</span>
+<span class="ansiyellow">                        --localpair</span> = 
+<span class="ansiyellow">                       --maxiterate</span> = 1000
 
 </pre>
 </div>
@@ -316,18 +261,39 @@ head data/lysozyme/lysozymeSmall.trees
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Running codeml from the ete_evol tool using this configuration file would be:</p>
+<p>As you have probably noticed, each application binding referred in workflow names is defined as a configuration block whose name is between brackets. To create new configuration blocks, you need to keep the following concepts in mind:</p>
+<ul>
+<li>the name of the block should not contain other symbols rather than text, numbers and underscores. Never use hyphens.</li>
+<li>Each block is composed of several internal <code>ete-build</code> options and several native software options. <ul>
+<li><em>internal options</em> are always prepended by an underscore and they are used to define the software to execute, the description of the config block and some default parameters that should not be hardcoded as native program arguments.</li>
+<li>Any other option in the format "argument = value" are considered <em>native options</em> and are passed as it to the corresponding software.  </li>
+<li>To pass flags as arguments, you can use the syntax "<code>argument = ''</code>" or simply "<code>argument =</code>" </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2.-Creating-new-configuration-blocks">2. Creating new configuration blocks<a class="anchor-link" href="#2.-Creating-new-configuration-blocks">&#182;</a></h3><p>Let's imagine that we want to create a new workflow where RAxML needs to be configured in a different manner.</p>
+<p>All we need to do is to dump any configuration block based on the RAxML bindings from the examples provided, and modify it. You can dump config blocks as regular text with the <code>ete2 build dump</code> command:</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre>%%bash
-ete3 evol --codeml_config_file data/lysozyme/lysozymeSmall.ctl
+ete3 build dump raxml_default &gt; myconfig.cfg
+cat myconfig.cfg
 </pre></div>
 
 </div>
@@ -340,11 +306,16 @@ ete3 evol --codeml_config_file data/lysozyme/lysozymeSmall.ctl
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Using: /Users/fransua/.miniconda2/bin/ete3_apps/bin/Slr
-Using: /Users/fransua/.miniconda2/bin/ete3_apps/bin/codeml
+<pre>[raxml_default]
+                                   _desc = RAxML with default parameters, GAMMA JTT/GTR and aLRT branch supports.
+                                    _app = raxml
+                              _bootstrap = alrt
+                                 _method = GAMMA
+                               _aa_model = JTT
+                           _model_suffix = 
+                                      -f = d
+                                      -p = 31416
 
-Running CodeML/Slr (1 CPUs)
-  - processing model XX.lysozymeSmall.ctl
 </pre>
 </div>
 </div>
@@ -358,18 +329,39 @@ Running CodeML/Slr (1 CPUs)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This command will run codeml on the control file with the only difference that the output file will be replaced by an output folder where all PAML ouput files will be stored.</p>
+<p>Let's now modify the options, so the configuration block looks like this (10 bootstraps and CAT model):</p>
+
+<pre><code>[raxml_CAT_10]
+                         _desc = RAxML with default parameters, CAT with 100 bootstraps.
+                          _app = raxml
+                    _bootstrap = 10        # we will use 10 replicates to keep the example fast 
+                       _method = CAT
+                     _aa_model = JTT
+                 _model_suffix = 
+                            -f = d
+                            -p = 31416</code></pre>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre>%%bash
-ls data/lysozyme/mlc/XX.lysozymeSmall.ctl/
+<div class=" highlight hl-ipython2"><pre>%%bash 
+<span class="nb">echo</span> <span class="s1">&#39;</span>
+<span class="s1">[raxml_CAT_10]</span>
+<span class="s1">                         _desc = RAxML with default parameters, CAT with 100 bootstraps.</span>
+<span class="s1">                          _app = raxml</span>
+<span class="s1">                    _bootstrap = 10</span>
+<span class="s1">                       _method = CAT</span>
+<span class="s1">                     _aa_model = JTT</span>
+<span class="s1">                 _model_suffix = </span>
+<span class="s1">                            -f = d</span>
+<span class="s1">                            -p = 31416</span>
+<span class="s1">&#39;</span> &gt; myconfig.cfg
+cat myconfig.cfg
 </pre></div>
 
 </div>
@@ -382,18 +374,17 @@ ls data/lysozyme/mlc/XX.lysozymeSmall.ctl/
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2NG.dN
-2NG.dS
-2NG.t
-4fold.nuc
-algn
-lnf
-out
-rst
-rst1
-rub
-tmp.ctl
-tree
+<pre>
+[raxml_CAT_10]
+                         _desc = RAxML with default parameters, CAT with 100 bootstraps.
+                          _app = raxml
+                    _bootstrap = 10
+                       _method = CAT
+                     _aa_model = JTT
+                 _model_suffix = 
+                            -f = d
+                            -p = 31416
+
 </pre>
 </div>
 </div>
@@ -407,28 +398,19 @@ tree
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Notice that an extra folder called <code>XX.lysozymeSmall.ctl</code> is created in order to allow one extra layer of organization if several control files have the same "outfile".</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>At the end of the main codeML output file we can see the result of the optimized branch model with a foreground $\omega$ of 3.5 and a background $\omega$ of 0.7</p>
+<h3 id="3.-Using-our-custom-configuration-blocks">3. Using our custom configuration blocks<a class="anchor-link" href="#3.-Using-our-custom-configuration-blocks">&#182;</a></h3><p>Once you have create all your personal configuration blocks, you can used them to run custom workflows by passing your configuration file with the <code>'-c'</code> option of <code>ete-build</code></p>
+<p>Note that for this example we also are enabling 5 CPUs, you can adjust this parameter to your system.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre>%%bash
-tail -n <span class="m">5</span> data/lysozyme/mlc/XX.lysozymeSmall.ctl/out
+ete3 build -a data/NUP62.aa.fa --clearall -o raxml_cat/ -w mafft_linsi-none-none-raxml_CAT_10 -c myconfig.cfg --cpu 5
 </pre></div>
 
 </div>
@@ -441,11 +423,379 @@ tail -n <span class="m">5</span> data/lysozyme/mlc/XX.lysozymeSmall.ctl/out
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>w ratios as labels for TreeView:
-((Hsa_Human #0.6858 , Hla_gibbon #0.6858 ) #0.6858 , ((Cgu/Can_colobus #0.6858 , Pne_langur #0.6858 ) #3.5057 , Mmu_rhesus #0.6858 ) #0.6858 , (Ssc_squirrelM #0.6858 , Cja_marmoset #0.6858 ) #0.6858 );
+<pre>Toolchain path: /Users/jhc/anaconda/bin/ete3_apps 
+Toolchain version: 2.0.3
 
 
-Time used:  0:04
+      --------------------------------------------------------------------------------
+                  ETE build - reproducible phylogenetic workflows 
+                                    unknown, unknown.
+
+      If you use ETE in a published work, please cite:
+
+        Jaime Huerta-Cepas, Joaquín Dopazo and Toni Gabaldón. ETE: a python
+        Environment for Tree Exploration. BMC Bioinformatics 2010,
+        11:24. doi:10.1186/1471-2105-11-24
+
+      (Note that a list of the external programs used to complete all necessary
+      computations will be also shown after execution. Those programs should
+      also be cited.)
+      --------------------------------------------------------------------------------
+
+    
+<span class="ansigreen">INFO</span> -  Testing x86-64  portable applications...
+       clustalo: <span class="ansigreen">OK</span> - 1.2.1
+<span class="ansiyellow">Dialign-tx not supported in OS X</span>
+       fasttree: <span class="ansigreen">OK</span> - FastTree Version 2.1.8 Double precision (No SSE3), OpenMP (2 threads)
+         kalign: <span class="ansigreen">OK</span> - Kalign version 2.04, Copyright (C) 2004, 2005, 2006 Timo Lassmann
+          mafft: <span class="ansigreen">OK</span> - MAFFT v6.861b (2011/09/24)
+         muscle: <span class="ansigreen">OK</span> - MUSCLE v3.8.31 by Robert C. Edgar
+          phyml: <span class="ansigreen">OK</span> - . This is PhyML version 20160115.
+     pmodeltest: <span class="ansigreen">OK</span> - pmodeltest.py v1.4
+          prank: <span class="ansigreen">OK</span> - prank v.100802. Minimal usage: &apos;prank sequence_file&apos;
+       probcons: <span class="ansigreen">OK</span> - PROBCONS version 1.12 - align multiple protein sequences and print to standard output
+          raxml: <span class="ansigreen">OK</span> - This is RAxML version 8.1.20 released by Alexandros Stamatakis on April 18 2015.
+ raxml-pthreads: <span class="ansigreen">OK</span> - This is RAxML version 8.1.20 released by Alexandros Stamatakis on April 18 2015.
+         readal: <span class="ansigreen">OK</span> - readAl v1.4.rev6 build[2012-02-02]
+         statal: <span class="ansigreen">OK</span> - statAl v1.4.rev6 build[2012-02-02]
+        tcoffee: <span class="ansigreen">OK</span> - PROGRAM: T-COFFEE Version_11.00.8cbe486 (2014-08-12 22:05:29 - Revision 8cbe486 - Build 477)
+         trimal: <span class="ansigreen">OK</span> - trimAl v1.4.rev6 build[2012-02-02]
+<span class="ansigreen">INFO</span> -  Starting ETE-build execution at Sun Feb  7 09:10:51 2016
+<span class="ansigreen">INFO</span> -  Output directory /Users/jhc/_Devel/cookbook/recipes/raxml_cat
+<span class="ansigreen">INFO</span> -  Erasing all existing npr data...
+<span class="ansigrey">WRNG</span> -  Using existing dir: /Users/jhc/_Devel/cookbook/recipes/raxml_cat/db
+<span class="ansigreen">INFO</span> -  Reading aa sequences from data/NUP62.aa.fa...
+<span class="ansigrey">WRNG</span> -  25 target sequences
+<span class="ansigreen">INFO</span> -  ETE build starts now!
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:10:51 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (W) <span class="ansiblue">MultiSeqTask</span> (25 aa seqs, MSF, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansiblue">MultiSeqTask</span> (25 aa seqs, MSF, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:10:53 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (W) <span class="ansired">AlgTask</span> (25 aa seqs, Mafft, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:10:55 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (W) <span class="ansired">AlgTask</span> (25 aa seqs, Mafft, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:10:57 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansired">AlgTask</span> (25 aa seqs, Mafft, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansired">AlgTask</span> (25 aa seqs, Mafft, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:10:59 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (W) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:01 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (W) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:03 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (Q) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:05 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:07 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:09 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:11 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:13 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:15 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:17 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:19 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:21 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:23 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:25 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (W) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:27 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:29 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:31 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:33 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:35 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:37 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:39 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:41 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:43 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:45 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:47 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:49 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:51 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:53 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:55 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:57 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:11:59 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:01 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:03 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:05 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:07 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:09 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:11 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:13 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:15 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:17 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:19 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:21 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:23 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:25 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:27 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:29 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:31 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:33 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:35 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:37 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:39 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:41 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:43 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:45 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:47 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:49 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:51 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:53 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:55 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:57 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:12:59 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:13:01 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:13:03 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:13:05 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:13:07 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:13:09 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:13:11 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:13:13 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:13:15 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (W) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:13:17 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (Q) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansigreen">TreeTask</span> (25 aa seqs, RaxML, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Sun Feb  7 09:13:19 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (W) <span class="ansicyan">TreeMergeTask</span> (25 aa seqs, TreeMerger, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansicyan">TreeMergeTask</span> (25 aa seqs, TreeMerger, /<span class="ansigrey">mafft_lins...xml_CAT_10</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  Assembling final tree...
+<span class="ansigreen">INFO</span> -  Done thread <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span> in 1 iteration(s)
+<span class="ansigreen">INFO</span> -  Writing final tree for <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>
+   /Users/jhc/_Devel/cookbook/recipes/raxml_cat/mafft_linsi-none-none-raxml_CAT_10/NUP62.aa.fa.final_tree.nw
+   /Users/jhc/_Devel/cookbook/recipes/raxml_cat/mafft_linsi-none-none-raxml_CAT_10/NUP62.aa.fa.final_tree.nwx (newick extended)
+<span class="ansigreen">INFO</span> -  Writing final tree alignment <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>
+   /Users/jhc/_Devel/cookbook/recipes/raxml_cat/mafft_linsi-none-none-raxml_CAT_10/NUP62.aa.fa.final_tree.used_alg.fa
+<span class="ansigreen">INFO</span> -  Writing root node alignment <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>
+   /Users/jhc/_Devel/cookbook/recipes/raxml_cat/mafft_linsi-none-none-raxml_CAT_10/NUP62.aa.fa.final_tree.fa
+<span class="ansigreen">INFO</span> -  Generating tree image for <span class="ansigrey">mafft_linsi-none-none-raxml_CAT_10</span>
+   /Users/jhc/_Devel/cookbook/recipes/raxml_cat/mafft_linsi-none-none-raxml_CAT_10/NUP62.aa.fa.final_tree.png
+<span class="ansigreen">INFO</span> -  Done
+<span class="ansigreen">INFO</span> -  Deleting temporal data...
+   ========================================================================
+         The following published software and/or methods were used.        
+               *** Please, do not forget to cite them! ***                 
+   ========================================================================
+   Huerta-Cepas J, Dopazo J, Gabaldón T. ETE: a python Environment for Tree
+      Exploration. BMC Bioinformatics. 2010 Jan 13;11:24.
+   Katoh K, Kuma K, Toh H, Miyata T. MAFFT version 5: improvement in
+      accuracy of multiple sequence alignment. Nucleic Acids Res. 2005 Jan
+      20;33(2):511-8.
+   Stamatakis A. RAxML version 8: a tool for phylogenetic analysis and
+      post-analysis of large phylogenies Bioinformatics (2014) 30 (9):
+      1312-1313.
 </pre>
 </div>
 </div>
@@ -459,29 +809,19 @@ Time used:  0:04
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>On top of this, the ete_evol tool will generate a summary image 
-<img src="data/lysozyme/tree_evol_example1.png"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Image which can be called interactively using the <code>--view</code> flag:</p>
+<p>After a few minutes a tree based on 10 RAxML bootstrap replicates using CAT should be ready. You can now load and analyze the tree.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre>%%bash
-ete3 evol --codeml_config_file data/lysozyme/lysozymeSmall.ctl --view --resume
+<div class=" highlight hl-ipython2"><pre><span class="kn">from</span> <span class="nn">ete3</span> <span class="kn">import</span> <span class="n">Tree</span>
+<span class="n">cat_tree</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">(</span><span class="s">&quot;raxml_cat/mafft_linsi-none-none-raxml_CAT_10/NUP62.aa.fa.final_tree.nw&quot;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">cat_tree</span><span class="o">.</span><span class="n">get_ascii</span><span class="p">(</span><span class="n">attributes</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;support&quot;</span><span class="p">,</span> <span class="s">&quot;name&quot;</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -494,12 +834,56 @@ ete3 evol --codeml_config_file data/lysozyme/lysozymeSmall.ctl --view --resume
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Using: /Users/fransua/.miniconda2/bin/ete3_apps/bin/Slr
-Using: /Users/fransua/.miniconda2/bin/ete3_apps/bin/codeml
-
-Running CodeML/Slr (1 CPUs)
-  - processing model XX.lysozymeSmall.ctl
-Model XX.lysozymeSmall.ctl already executed... SKIPPING
+<pre>
+          /-1.0, Phy004OQ34_STRCA
+     /1.0, 
+    |    |     /-1.0, Phy004PA1B_ANAPL
+    |     \1.0, 
+    |         |     /-1.0, Phy0054BO3_MELGA
+    |          \1.0, 
+    |               \-1.0, Phy003I7ZJ_CHICK
+    |
+    |               /-1.0, Phy00508FR_NIPNI
+-1.0,          /0.3, 
+    |         |     \-1.0, Phy0050IUO_OPIHO
+    |     /0.1, 
+    |    |    |     /-1.0, Phy004Y35P_HALLE
+    |    |     \1.0, 
+    |    |          \-1.0, Phy004XRVA_HALAL
+    |    |
+    |    |          /-1.0, Phy004W8WJ_FALPE
+    |    |     /0.9, 
+     \1.0,    |     \-1.0, Phy004W8WI_FALPE
+         |    |
+         |    |                         /-1.0, Phy004OLZM_COLLI
+         |    |                    /0.9, 
+         |    |                   |     \-1.0, Phy004OLZN_COLLI
+         |    |               /0.3, 
+         |    |              |    |     /-1.0, Phy004V34S_CORBR
+         |    |              |     \0.4, 
+          \0.0,          /0.1,          \-1.0, Phy004Y9VQ_LEPDC
+              |         |    |
+              |         |    |     /-1.0, Phy004VACL_55661
+              |         |     \0.4, 
+              |     /0.0,          \-1.0, Phy004U0LB_BUCRH
+              |    |    |
+              |    |    |          /-1.0, Phy004Z7RR_MERNU
+              |    |    |     /0.2, 
+              |    |    |    |     \-1.0, Phy004TLNA_APAVI
+              |    |     \0.0, 
+               \0.0,         |     /-1.0, Phy00527O5_PICPB
+                   |          \0.3, 
+                   |               \-1.0, Phy004Z0OU_MELUD
+                   |
+                   |     /-1.0, Phy004STVX_187382
+                   |    |
+                    \0.1,          /-1.0, Phy00535AU_PYGAD
+                        |     /0.9, 
+                        |    |     \-1.0, Phy004O1E0_APTFO
+                         \0.3, 
+                             |     /-1.0, Phy004UIZ8_CALAN
+                              \0.2, 
+                                   \-1.0, Phy004SNJQ_CHAVO
 </pre>
 </div>
 </div>
@@ -507,16 +891,6 @@ Model XX.lysozymeSmall.ctl already executed... SKIPPING
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="data/lysozyme/ete_run1_lysozyme.png"></p>
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
