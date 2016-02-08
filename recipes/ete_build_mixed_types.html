@@ -1,7 +1,7 @@
 
 
 <head><meta charset="utf-8" />
-<title>index</title>
+<title>ete_build_mixed_types</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -174,27 +174,285 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Index">Index<a class="anchor-link" href="#Index">&#182;</a></h1><h2 id="Tree-building-(ete-build)">Tree building (ete-build)<a class="anchor-link" href="#Tree-building-(ete-build)">&#182;</a></h2><ul>
-<li><a href="ete_build_basics.ipynb">Basic concepts behind ete-build</a> </li>
-<li><a href="ete_build_workflows.ipynb">Compose custom workflows</a>  </li>
-<li><a href="ete_build_metaworkflow.ipynb">Runninng multiple workflows at once</a></li>
-<li><a href="ete_build_new_workflows.ipynb">Create new workflows and application bindings</a></li>
-<li><a href="ete_build_mixed_types.ipynb">Combining amino-acid and nucleotide sequences</a></li>
-<li><a href="ete_build_manual_algs.ipynb">Using manual alignments</a></li>
-<li><a href="ete_build_resuming.ipynb">Resuming or extendending an analysis</a></li>
-</ul>
-<ul>
-<li><a href="ete_build_supematrix.ipynb">Building species trees</a> (Concatenated alignments)</li>
-<li><a href="ete_build_input_seqs.ipynb">Tips and options regarding input data</a></li>
-<li><a href="ete_build_cluster.ipynb">Tips for running in a cluster environment</a></li>
-<li><a href="ete_build_troubleshoot.ipynb">Troubleshooting</a></li>
-</ul>
-<h2 id="Testing-evolutionary-hipothesis-(ete-evol)">Testing evolutionary hipothesis (ete-evol)<a class="anchor-link" href="#Testing-evolutionary-hipothesis-(ete-evol)">&#182;</a></h2><ul>
-<li><a href="ete_evol_lysozyme.ipynb">Running a Codeml analysis</a> (Reproducing results from Yang Z (MBE, 1998))</li>
+<h1 id="Automatic-switching-from-amino-acid-to-codon-based-alignments">Automatic switching from amino-acid to codon-based alignments<a class="anchor-link" href="#Automatic-switching-from-amino-acid-to-codon-based-alignments">&#182;</a></h1><p>This recipe shows how to use <code>ete-build</code> to build nucleotide-based genes tress based on amino-acid alignments.</p>
+<p>For instance, if the average sequence identity in the amino-acid alignment is higher than a given threshold, ete-build will automatically translate the amino-acid alignment into a codon-based alignment and infer a tree based on the nucleotide models (codon-models are not supported).</p>
+<p>This is a useful approach when protein alignments do not provide enough phylogenetic resolution (i.e. synonymous mutations are masked), but you still want to use amino-acid based alignments for better accuarcy vs nucleotide-based ones.</p>
+<h2 id="Requirements">Requirements<a class="anchor-link" href="#Requirements">&#182;</a></h2><ul>
+<li>ete3</li>
+<li>ete3_external_apps</li>
+<li><a href="ete_build_basics.ipynb">basic concepts about ete-build</a></li>
 </ul>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Recipe">Recipe<a class="anchor-link" href="#Recipe">&#182;</a></h2><h3 id="1.-Prepare-amino-acid-and-nucleotide-multi-sequence-FASTA-files">1. Prepare amino-acid and nucleotide multi sequence FASTA files<a class="anchor-link" href="#1.-Prepare-amino-acid-and-nucleotide-multi-sequence-FASTA-files">&#182;</a></h3><p>Both FASTA files should contain the exact same set of sequence names. Nucleotide sequences should be the coding sequence for the amino-acid sequences (i.e coincide in length)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre>%%bash 
+head data/NUP62.aa.fa data/NUP62.nt.fa -n5
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>==&gt; data/NUP62.aa.fa &lt;==
+&gt;Phy003I7ZJ_CHICK
+TMSQFNFSSAPAGGGFSFSTPKTAASTTAATGFSFTPAPSSGFTFGGAAPTPASSQPVTP
+FSFSTPASSALPTAFSFGTPATATTAAPAASVFPLGGNAPKLNFGGTSTTQATGITGGFG
+FGTSAPTSVPSSQAAAPSGFMFGTAATTTTTTTAAQPGTTGGFTFSSGTTTQAGTTGFNI
+GATSTAAPQAVPTGLTFGAAPAAAATTTASLGSTTQPAATPFSLGGQSSATLTASTSQGP
+
+==&gt; data/NUP62.nt.fa &lt;==
+&gt;Phy003I7ZJ_CHICK
+ACCATGAGCCAGTTCAACTTCAGCTCGGCCCCGGCGGGAGGCGGCTTCTCCTTCAGCACGCCGAAAACGGCCGCCAGCAC
+CACCGCGGCCACCGGCTTCTCCTTCACGCCCGCTCCCTCCTCGGGATTCACGTTCGGCGGCGCTGCTCCGACACCCGCCA
+GCAGCCAGCCCGTCACGCCCTTCTCCTTCAGCACGCCGGCCAGCAGCGCGCTGCCCACCGCCTTCAGCTTCGGGACGCCC
+GCAACAGCCACCACCGCCGCCCCGGCTGCCAGCGTGTTCCCGTTAGGGGGAAACGCACCAAAGCTCAACTTTGGAGGCAC
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2.-Enable-mixed-mode-in-ete-build-workflows">2. Enable mixed mode in ete-build workflows<a class="anchor-link" href="#2.-Enable-mixed-mode-in-ete-build-workflows">&#182;</a></h3><p>For this,</p>
+<ul>
+<li>pass both FASTA files as arguments to ete-build (<code>-a</code> for proteins, <code>-n</code> for nucleotide sequences)</li>
+<li>specifying a threshold for the aa-&gt;nt switch. This is, the maximum protein sequence identity allowed to build protein-based trees. </li>
+</ul>
+<p>If the average sequence identity in a protein alignments is higher than the threshold provided, <code>ete-build</code> will convert the alignment into a codon-based alignment and continue to infer the tree using a nucleotide model.</p>
+<p>In the following example, we configure the workflow to use nucleotide alignments if the average protein similarity is above 90%.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre>%%bash 
+ete3 build -a data/NUP62.aa.fa -n data/NUP62.nt.fa -o mixed_types/ -w standard_fasttree --clearall --nt-switch-threshold 0.9
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Toolchain path: /Users/jhc/anaconda/bin/ete3_apps 
+Toolchain version: 2.0.3
+
+
+      --------------------------------------------------------------------------------
+                  ETE build - reproducible phylogenetic workflows 
+                                    unknown, unknown.
+
+      If you use ETE in a published work, please cite:
+
+        Jaime Huerta-Cepas, Joaquín Dopazo and Toni Gabaldón. ETE: a python
+        Environment for Tree Exploration. BMC Bioinformatics 2010,
+        11:24. doi:10.1186/1471-2105-11-24
+
+      (Note that a list of the external programs used to complete all necessary
+      computations will be also shown after execution. Those programs should
+      also be cited.)
+      --------------------------------------------------------------------------------
+
+    
+<span class="ansigreen">INFO</span> -  Testing x86-64  portable applications...
+       clustalo: <span class="ansigreen">OK</span> - 1.2.1
+<span class="ansiyellow">Dialign-tx not supported in OS X</span>
+       fasttree: <span class="ansigreen">OK</span> - FastTree Version 2.1.8 Double precision (No SSE3), OpenMP (1 threads)
+         kalign: <span class="ansigreen">OK</span> - Kalign version 2.04, Copyright (C) 2004, 2005, 2006 Timo Lassmann
+          mafft: <span class="ansigreen">OK</span> - MAFFT v6.861b (2011/09/24)
+         muscle: <span class="ansigreen">OK</span> - MUSCLE v3.8.31 by Robert C. Edgar
+          phyml: <span class="ansigreen">OK</span> - . This is PhyML version 20160115.
+     pmodeltest: <span class="ansigreen">OK</span> - pmodeltest.py v1.4
+          prank: <span class="ansigreen">OK</span> - prank v.100802. Minimal usage: &apos;prank sequence_file&apos;
+       probcons: <span class="ansigreen">OK</span> - PROBCONS version 1.12 - align multiple protein sequences and print to standard output
+          raxml: <span class="ansigreen">OK</span> - This is RAxML version 8.1.20 released by Alexandros Stamatakis on April 18 2015.
+ raxml-pthreads: <span class="ansigreen">OK</span> - This is RAxML version 8.1.20 released by Alexandros Stamatakis on April 18 2015.
+         readal: <span class="ansigreen">OK</span> - readAl v1.4.rev6 build[2012-02-02]
+         statal: <span class="ansigreen">OK</span> - statAl v1.4.rev6 build[2012-02-02]
+        tcoffee: <span class="ansigreen">OK</span> - PROGRAM: T-COFFEE Version_11.00.8cbe486 (2014-08-12 22:05:29 - Revision 8cbe486 - Build 477)
+         trimal: <span class="ansigreen">OK</span> - trimAl v1.4.rev6 build[2012-02-02]
+<span class="ansigreen">INFO</span> -  Starting ETE-build execution at Mon Feb  8 14:05:16 2016
+<span class="ansigreen">INFO</span> -  Output directory /Users/jhc/_Devel/cookbook/recipes/mixed_types
+<span class="ansigreen">INFO</span> -  Erasing all existing npr data...
+<span class="ansigrey">WRNG</span> -  Using existing dir: /Users/jhc/_Devel/cookbook/recipes/mixed_types/db
+<span class="ansigreen">INFO</span> -  Reading aa sequences from data/NUP62.aa.fa...
+<span class="ansigreen">INFO</span> -  Reading nt sequences from data/NUP62.nt.fa...
+<span class="ansigrey">WRNG</span> -  25 target sequences
+<span class="ansigreen">INFO</span> -  ETE build starts now!
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 14:05:16 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">clustalo_default-none-none-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (W) <span class="ansiblue">MultiSeqTask</span> (25 aa seqs, MSF, /<span class="ansigrey">clustalo_d...ttree_full</span>)
+<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansiblue">MultiSeqTask</span> (25 aa seqs, MSF, /<span class="ansigrey">clustalo_d...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 14:05:18 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">clustalo_default-none-none-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (W) <span class="ansired">AlgTask</span> (25 aa seqs, Clustal-Omega, /<span class="ansigrey">clustalo_d...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 14:05:20 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">clustalo_default-none-none-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (W) <span class="ansired">AlgTask</span> (25 aa seqs, Clustal-Omega, /<span class="ansigrey">clustalo_d...ttree_full</span>)
+<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansired">AlgTask</span> (25 aa seqs, Clustal-Omega, /<span class="ansigrey">clustalo_d...ttree_full</span>)
+<span class="ansigreen">INFO</span> -          <span class="ansipurple">Switching to codon alignment!</span> amino-acid sequence similarity: 0.91 &gt;= 0.90
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 14:05:22 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">clustalo_default-none-none-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (W) <span class="ansigreen">TreeTask</span> (25 nt seqs, FastTree, /<span class="ansigrey">clustalo_d...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 14:05:24 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">clustalo_default-none-none-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (W) <span class="ansigreen">TreeTask</span> (25 nt seqs, FastTree, /<span class="ansigrey">clustalo_d...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 14:05:26 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">clustalo_default-none-none-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (25 nt seqs, FastTree, /<span class="ansigrey">clustalo_d...ttree_full</span>)
+<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansigreen">TreeTask</span> (25 nt seqs, FastTree, /<span class="ansigrey">clustalo_d...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 14:05:28 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">clustalo_default-none-none-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 25
+<span class="ansigreen">INFO</span> -   (W) <span class="ansicyan">TreeMergeTask</span> (25 nt seqs, TreeMerger, /<span class="ansigrey">clustalo_d...ttree_full</span>)
+<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansicyan">TreeMergeTask</span> (25 nt seqs, TreeMerger, /<span class="ansigrey">clustalo_d...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  Assembling final tree...
+<span class="ansigreen">INFO</span> -  Done thread <span class="ansigrey">clustalo_default-none-none-fasttree_full</span> in 1 iteration(s)
+<span class="ansigreen">INFO</span> -  Writing final tree for <span class="ansigrey">clustalo_default-none-none-fasttree_full</span>
+   /Users/jhc/_Devel/cookbook/recipes/mixed_types/clustalo_default-none-none-fasttree_full/NUP62.aa.fa.final_tree.nw
+   /Users/jhc/_Devel/cookbook/recipes/mixed_types/clustalo_default-none-none-fasttree_full/NUP62.aa.fa.final_tree.nwx (newick extended)
+<span class="ansigreen">INFO</span> -  Writing final tree alignment <span class="ansigrey">clustalo_default-none-none-fasttree_full</span>
+   /Users/jhc/_Devel/cookbook/recipes/mixed_types/clustalo_default-none-none-fasttree_full/NUP62.aa.fa.final_tree.used_alg.fa
+<span class="ansigreen">INFO</span> -  Writing root node alignment <span class="ansigrey">clustalo_default-none-none-fasttree_full</span>
+   /Users/jhc/_Devel/cookbook/recipes/mixed_types/clustalo_default-none-none-fasttree_full/NUP62.aa.fa.final_tree.fa
+<span class="ansigreen">INFO</span> -  Generating tree image for <span class="ansigrey">clustalo_default-none-none-fasttree_full</span>
+   /Users/jhc/_Devel/cookbook/recipes/mixed_types/clustalo_default-none-none-fasttree_full/NUP62.aa.fa.final_tree.png
+<span class="ansigreen">INFO</span> -  Done
+<span class="ansigreen">INFO</span> -  Deleting temporal data...
+   ========================================================================
+         The following published software and/or methods were used.        
+               *** Please, do not forget to cite them! ***                 
+   ========================================================================
+   Sievers F, Wilm A, Dineen D, Gibson TJ, Karplus K, Li W, Lopez R,
+      McWilliam H, Remmert M, Söding J, Thompson JD, Higgins DG. Fast,
+      scalable generation of high-quality protein multiple sequence
+      alignments using Clustal Omega. Mol Syst Biol. 2011 Oct 11;7:539.
+      doi: 10.1038/msb.2011.75.
+   Huerta-Cepas J, Dopazo J, Gabaldón T. ETE: a python Environment for Tree
+      Exploration. BMC Bioinformatics. 2010 Jan 13;11:24.
+   Price MN, Dehal PS, Arkin AP. FastTree 2 - approximately maximum-
+      likelihood trees for large alignments. PLoS One. 2010 Mar
+      10;5(3):e9490.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>During executing, a warning like this was raised:</p>
+<p><strong><code>Switching to codon alignment! amino-acid sequence similarity: 0.91 &gt;= 0.90</code></strong></p>
+<p>In the results folder, both the amino acid and the nucleotide alignments will be reported. The condon-based alignment is called <code>"*.used_alg.fa"</code>, as this is the alignment actually used to build the reported tree.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre>%%bash
+head -n2 mixed_types/clustalo_default-none-none-fasttree_full/NUP62.aa.fa.final_tree.fa
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&gt;Phy00535AU_PYGAD
+------------------------------------------------AAQTPA-SSQPAGLFSFSTPGAAA-QPASFSFGTPATAA-AAPAANVFPLGANAPKLNFGGSAATQATGITGGFGFGSSVPTSVPSSQAAAPSGFVFGCAGTTTTTT---TTSAQSGTTGTFTFSSGTATQAGTPSFNIGAAA---PQAAPTGLTFGTAPAAA-ATTAATLGAATQS-TTPFCLGGQSA-------ATLTTSTSQGPTLSFGAKLGGRNTAPAAPPAAATTTTSILGSAGPTLFASIASSSAPTSA-TTTGLSLGAP---STGTASLGTLGFGLKVPGTTAAAT-STATSTT--SASGFALNLKPLTTTGAIGAGTSTAAITTATTA-SAPPVMTYAQLESLINKWSLELEDQEKHFLHQATQVNAWDRTLIENGEKITSLHREVEKVKLDQKRLDQELDFILSQQKELEDLLTPLEESVKEQSGTIYLQHADEERERT---------------------------------------------------------------------------------------------
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre>%%bash
+head -n2 mixed_types/clustalo_default-none-none-fasttree_full/NUP62.aa.fa.final_tree.used_alg.fa
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&gt;Phy00535AU_PYGAD
+------------------------------------------------------------------------------------------------------------------------------------------------GCGGCCCAGACGCCTGCC---AGCAGCCAGCCCGCCGGGCTCTTCTCCTTCAGCACGCCGGGCGCTGCCGCG---CAGCCTGCCAGCTTCAGCTTCGGGACGCCGGCCACGGCCGCC---GCGGCTCCGGCAGCAAACGTGTTCCCGCTGGGGGCAAATGCACCAAAATTAAACTTTGGAGGCAGCGCTGCAACTCAAGCTACTGGAATCACAGGGGGCTTTGGATTTGGTAGCTCTGTACCGACCAGCGTGCCCTCAAGTCAAGCAGCAGCCCCTTCTGGCTTTGTGTTTGGATGTGCTGGCACCACCACCACCACCACC---------ACCACCTCCGCTCAGTCTGGGACAACTGGAACGTTTACTTTCTCCAGTGGTACCGCAACTCAGGCCGGAACGCCCAGCTTCAACATTGGCGCTGCAGCT---------CCGCAGGCAGCGCCCACCGGGTTGACCTTTGGAACAGCACCTGCAGCTGCT---GCCACCACTGCTGCCACCTTAGGGGCCGCAACCCAGTCG---ACAACCCCCTTCTGCCTTGGGGGGCAGTCTGCC---------------------GCAACGCTGACCACTAGTACCAGCCAGGGACCCACTCTGTCCTTTGGAGCCAAACTTGGAGGTAGGAACACCGCACCCGCCGCTCCCCCGGCTGCCGCTACCACCACAACCTCCATTCTTGGTTCAGCGGGGCCTACGTTGTTTGCATCTATAGCGAGTTCTTCAGCACCGACGTCGGCT---ACCACCACGGGCCTCTCACTTGGTGCCCCT---------TCCACTGGGACAGCAAGTCTTGGAACGCTTGGGTTTGGATTAAAAGTTCCTGGAACAACAGCGGCTGCAACA---AGCACTGCCACTAGCACTACT------TCTGCTTCTGGCTTTGCTTTGAATCTTAAGCCATTAACTACGACTGGTGCCATTGGAGCTGGGACTTCTACAGCTGCCATAACCACAGCAACCACAGCC---AGTGCACCTCCAGTGATGACGTATGCCCAGCTGGAGAGTTTGATAAACAAGTGGAGTCTGGAACTGGAAGACCAAGAGAAACACTTTCTCCATCAAGCTACGCAAGTTAATGCCTGGGATCGGACGCTGATAGAGAATGGAGAGAAGATTACTTCATTACACAGAGAAGTAGAGAAAGTGAAGCTTGATCAGAAGAGACTGGATCAGGAGCTGGACTTCATTCTGTCACAGCAGAAAGAGCTTGAAGACTTGTTGACCCCTCTGGAGGAGTCTGTGAAGGAGCAGAGCGGAACTATCTACTTGCAGCATGCAGATGAAGAACGGGAGAGGACG---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 
 
 <head><meta charset="utf-8" />
-<title>index</title>
+<title>ete_build_manual_algs</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -174,27 +174,174 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Index">Index<a class="anchor-link" href="#Index">&#182;</a></h1><h2 id="Tree-building-(ete-build)">Tree building (ete-build)<a class="anchor-link" href="#Tree-building-(ete-build)">&#182;</a></h2><ul>
-<li><a href="ete_build_basics.ipynb">Basic concepts behind ete-build</a> </li>
-<li><a href="ete_build_workflows.ipynb">Compose custom workflows</a>  </li>
-<li><a href="ete_build_metaworkflow.ipynb">Runninng multiple workflows at once</a></li>
-<li><a href="ete_build_new_workflows.ipynb">Create new workflows and application bindings</a></li>
-<li><a href="ete_build_mixed_types.ipynb">Combining amino-acid and nucleotide sequences</a></li>
-<li><a href="ete_build_manual_algs.ipynb">Using manual alignments</a></li>
-<li><a href="ete_build_resuming.ipynb">Resuming or extendending an analysis</a></li>
-</ul>
-<ul>
-<li><a href="ete_build_supematrix.ipynb">Building species trees</a> (Concatenated alignments)</li>
-<li><a href="ete_build_input_seqs.ipynb">Tips and options regarding input data</a></li>
-<li><a href="ete_build_cluster.ipynb">Tips for running in a cluster environment</a></li>
-<li><a href="ete_build_troubleshoot.ipynb">Troubleshooting</a></li>
-</ul>
-<h2 id="Testing-evolutionary-hipothesis-(ete-evol)">Testing evolutionary hipothesis (ete-evol)<a class="anchor-link" href="#Testing-evolutionary-hipothesis-(ete-evol)">&#182;</a></h2><ul>
-<li><a href="ete_evol_lysozyme.ipynb">Running a Codeml analysis</a> (Reproducing results from Yang Z (MBE, 1998))</li>
+<h1 id="Using-manual-alignments">Using manual alignments<a class="anchor-link" href="#Using-manual-alignments">&#182;</a></h1><p>This recipe shows how run a phylogenetic workflow ignoring the sequence alignment phase. This allows to treat the input sequences as <em>aligned sequences</em>, and being used as it in next steps.</p>
+<h2 id="Requirements">Requirements<a class="anchor-link" href="#Requirements">&#182;</a></h2><ul>
+<li>ete3</li>
+<li>ete3_external_apps</li>
+<li><a href="ete_build_basics.ipynb">basic concepts about ete-build</a> </li>
+<li><a href="ete_build_workflows.ipynb">composing custom workflows</a></li>
 </ul>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Recipe">Recipe<a class="anchor-link" href="#Recipe">&#182;</a></h2><p>The only required step to use manual alignments is to set to <em><code>none</code></em> the alignining task in your preferred workflow name.</p>
+<p>For instance, the following run, will run modeltesting and a raxml tree over a pre-aligned set of sequences:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre>%%bash 
+ete3 build -a data/P53.alg.fa -w none-none-pmodeltest_soft_ultrafast-raxml_default -o manual_alg --clearall
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Toolchain path: /Users/jhc/anaconda/bin/ete3_apps 
+Toolchain version: 2.0.3
+
+
+      --------------------------------------------------------------------------------
+                  ETE build - reproducible phylogenetic workflows 
+                                    unknown, unknown.
+
+      If you use ETE in a published work, please cite:
+
+        Jaime Huerta-Cepas, Joaquín Dopazo and Toni Gabaldón. ETE: a python
+        Environment for Tree Exploration. BMC Bioinformatics 2010,
+        11:24. doi:10.1186/1471-2105-11-24
+
+      (Note that a list of the external programs used to complete all necessary
+      computations will be also shown after execution. Those programs should
+      also be cited.)
+      --------------------------------------------------------------------------------
+
+    
+<span class="ansigreen">INFO</span> -  Testing x86-64  portable applications...
+       clustalo: <span class="ansigreen">OK</span> - 1.2.1
+<span class="ansiyellow">Dialign-tx not supported in OS X</span>
+       fasttree: <span class="ansigreen">OK</span> - FastTree Version 2.1.8 Double precision (No SSE3), OpenMP (1 threads)
+         kalign: <span class="ansigreen">OK</span> - Kalign version 2.04, Copyright (C) 2004, 2005, 2006 Timo Lassmann
+          mafft: <span class="ansigreen">OK</span> - MAFFT v6.861b (2011/09/24)
+         muscle: <span class="ansigreen">OK</span> - MUSCLE v3.8.31 by Robert C. Edgar
+          phyml: <span class="ansigreen">OK</span> - . This is PhyML version 20160115.
+     pmodeltest: <span class="ansigreen">OK</span> - pmodeltest.py v1.4
+          prank: <span class="ansigreen">OK</span> - prank v.100802. Minimal usage: &apos;prank sequence_file&apos;
+       probcons: <span class="ansigreen">OK</span> - PROBCONS version 1.12 - align multiple protein sequences and print to standard output
+          raxml: <span class="ansigreen">OK</span> - This is RAxML version 8.1.20 released by Alexandros Stamatakis on April 18 2015.
+ raxml-pthreads: <span class="ansigreen">OK</span> - This is RAxML version 8.1.20 released by Alexandros Stamatakis on April 18 2015.
+         readal: <span class="ansigreen">OK</span> - readAl v1.4.rev6 build[2012-02-02]
+         statal: <span class="ansigreen">OK</span> - statAl v1.4.rev6 build[2012-02-02]
+        tcoffee: <span class="ansigreen">OK</span> - PROGRAM: T-COFFEE Version_11.00.8cbe486 (2014-08-12 22:05:29 - Revision 8cbe486 - Build 477)
+         trimal: <span class="ansigreen">OK</span> - trimAl v1.4.rev6 build[2012-02-02]
+<span class="ansigreen">INFO</span> -  Starting ETE-build execution at Mon Feb  8 14:17:42 2016
+<span class="ansigreen">INFO</span> -  Output directory /Users/jhc/_Devel/cookbook/recipes/manual_alg
+<span class="ansigreen">INFO</span> -  Erasing all existing npr data...
+<span class="ansigrey">WRNG</span> -  Using existing dir: /Users/jhc/_Devel/cookbook/recipes/manual_alg/db
+<span class="ansigreen">INFO</span> -  Reading aa sequences from data/P53.alg.fa...
+<span class="ansigrey">WRNG</span> -  8 target sequences
+<span class="ansigreen">INFO</span> -  ETE build starts now!
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 14:17:42 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">none-none-pmodeltest_soft_ultrafast-raxml_default</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (W) <span class="ansiblue">MultiSeqTask</span> (8 aa seqs, MSF, /<span class="ansigrey">none-none-...ml_default</span>)
+<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansiblue">MultiSeqTask</span> (8 aa seqs, MSF, /<span class="ansigrey">none-none-...ml_default</span>)
+<span class="ansigrey">WRNG</span> -          Skipping alignment phase, using original sequences
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 14:17:44 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">none-none-pmodeltest_soft_ultrafast-raxml_default</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (W) <span class="ansired">AlgTask</span> (8 aa seqs, ManualAlg, /<span class="ansigrey">none-none-...ml_default</span>)
+<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansired">AlgTask</span> (8 aa seqs, ManualAlg, /<span class="ansigrey">none-none-...ml_default</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 14:17:46 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">none-none-pmodeltest_soft_ultrafast-raxml_default</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (W) <span class="ansipurple">ModelTesterTask</span> (8 aa seqs, PModelTest-[JTT,WAG,VT,LG,MtREV], /<span class="ansigrey">none-none-...ml_default</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 14:17:48 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">none-none-pmodeltest_soft_ultrafast-raxml_default</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (W) <span class="ansipurple">ModelTesterTask</span> (8 aa seqs, PModelTest-[JTT,WAG,VT,LG,MtREV], /<span class="ansigrey">none-none-...ml_default</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 14:17:50 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">none-none-pmodeltest_soft_ultrafast-raxml_default</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansipurple">ModelTesterTask</span> (8 aa seqs, PModelTest-[JTT,WAG,VT,LG,MtREV], /<span class="ansigrey">none-none-...ml_default</span>)
+<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansipurple">ModelTesterTask</span> (8 aa seqs, PModelTest-[JTT,WAG,VT,LG,MtREV], /<span class="ansigrey">none-none-...ml_default</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 14:17:52 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">none-none-pmodeltest_soft_ultrafast-raxml_default</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (W) <span class="ansigreen">TreeTask</span> (8 aa seqs, RaxML, /<span class="ansigrey">none-none-...ml_default</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 14:17:54 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">none-none-pmodeltest_soft_ultrafast-raxml_default</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (W) <span class="ansigreen">TreeTask</span> (8 aa seqs, RaxML, /<span class="ansigrey">none-none-...ml_default</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 14:17:56 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">none-none-pmodeltest_soft_ultrafast-raxml_default</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (Q) <span class="ansigreen">TreeTask</span> (8 aa seqs, RaxML, /<span class="ansigrey">none-none-...ml_default</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 14:17:58 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">none-none-pmodeltest_soft_ultrafast-raxml_default</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (W) <span class="ansigreen">TreeTask</span> (8 aa seqs, RaxML, /<span class="ansigrey">none-none-...ml_default</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 14:18:00 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">none-none-pmodeltest_soft_ultrafast-raxml_default</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (Q) <span class="ansigreen">TreeTask</span> (8 aa seqs, RaxML, /<span class="ansigrey">none-none-...ml_default</span>)
+<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, RaxML, /<span class="ansigrey">none-none-...ml_default</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 14:18:02 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">none-none-pmodeltest_soft_ultrafast-raxml_default</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (W) <span class="ansicyan">TreeMergeTask</span> (8 aa seqs, TreeMerger, /<span class="ansigrey">none-none-...ml_default</span>)
+<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansicyan">TreeMergeTask</span> (8 aa seqs, TreeMerger, /<span class="ansigrey">none-none-...ml_default</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
+<span class="ansigreen">INFO</span> -  Assembling final tree...
+<span class="ansigreen">INFO</span> -  Done thread <span class="ansigrey">none-none-pmodeltest_soft_ultrafast-raxml_default</span> in 1 iteration(s)
+<span class="ansigreen">INFO</span> -  Writing final tree for <span class="ansigrey">none-none-pmodeltest_soft_ultrafast-raxml_default</span>
+   /Users/jhc/_Devel/cookbook/recipes/manual_alg/none-none-pmodeltest_soft_ultrafast-raxml_default/P53.alg.fa.final_tree.nw
+   /Users/jhc/_Devel/cookbook/recipes/manual_alg/none-none-pmodeltest_soft_ultrafast-raxml_default/P53.alg.fa.final_tree.nwx (newick extended)
+<span class="ansigreen">INFO</span> -  Writing final tree alignment <span class="ansigrey">none-none-pmodeltest_soft_ultrafast-raxml_default</span>
+   /Users/jhc/_Devel/cookbook/recipes/manual_alg/none-none-pmodeltest_soft_ultrafast-raxml_default/P53.alg.fa.final_tree.used_alg.fa
+<span class="ansigreen">INFO</span> -  Writing root node alignment <span class="ansigrey">none-none-pmodeltest_soft_ultrafast-raxml_default</span>
+   /Users/jhc/_Devel/cookbook/recipes/manual_alg/none-none-pmodeltest_soft_ultrafast-raxml_default/P53.alg.fa.final_tree.fa
+<span class="ansigreen">INFO</span> -  Generating tree image for <span class="ansigrey">none-none-pmodeltest_soft_ultrafast-raxml_default</span>
+   /Users/jhc/_Devel/cookbook/recipes/manual_alg/none-none-pmodeltest_soft_ultrafast-raxml_default/P53.alg.fa.final_tree.png
+<span class="ansigreen">INFO</span> -  Done
+<span class="ansigreen">INFO</span> -  Deleting temporal data...
+   ========================================================================
+         The following published software and/or methods were used.        
+               *** Please, do not forget to cite them! ***                 
+   ========================================================================
+   Guindon S, Dufayard JF, Lefort V, Anisimova M, Hordijk W, Gascuel O. New
+      algorithms and methods to estimate maximum-likelihood phylogenies:
+      assessing the performance of PhyML 3.0. Syst Biol. 2010
+      May;59(3):307-21.
+   Huerta-Cepas J, Dopazo J, Gabaldón T. ETE: a python Environment for Tree
+      Exploration. BMC Bioinformatics. 2010 Jan 13;11:24.
+   Stamatakis A. RAxML version 8: a tool for phylogenetic analysis and
+      post-analysis of large phylogenies Bioinformatics (2014) 30 (9):
+      1312-1313.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     </div>
   </div>
