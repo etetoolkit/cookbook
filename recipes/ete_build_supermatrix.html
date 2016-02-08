@@ -211,7 +211,7 @@ sp1_seqC   sp3_seqC    sp4_seqC    sp5_seqC</code></pre>
 </ul>
 <h3 id="2.-Choose-a-gene-tree-workflow-for-aligning-sequences-within-each-OG">2. Choose a gene-tree workflow for aligning sequences within each OG<a class="anchor-link" href="#2.-Choose-a-gene-tree-workflow-for-aligning-sequences-within-each-OG">&#182;</a></h3><p>Sequences belonging to OGs must be aligned prior to concatenation. Any ete-build gene-tree workflow can be selected for that and passed with the <code>-w</code> option.</p>
 <p>If an alignment trimming step is present in the gene-tree workflow, the trimmed version of the alignment will be used for concatenation.</p>
-<h3 id="3.-Choose-a-workflow-to-select-OGs-from-the-set-and-infer-the-final-tree">3. Choose a workflow to select OGs from the set and infer the final tree<a class="anchor-link" href="#3.-Choose-a-workflow-to-select-OGs-from-the-set-and-infer-the-final-tree">&#182;</a></h3><p>Supermatrix (concatenated) workflow names are defined in a very similar way as gene-tree workflows.</p>
+<h3 id="3.-Choose-a-workflow-to-select-OGs-and-infer-final-tree">3. Choose a workflow to select OGs and infer final tree<a class="anchor-link" href="#3.-Choose-a-workflow-to-select-OGs-and-infer-final-tree">&#182;</a></h3><p>Supermatrix (concatenated) workflow names are defined in a very similar way as gene-tree workflows.</p>
 <p>There are three master tasks in a supermatrix workflow:</p>
 <ul>
 <li><p>OG selection: Used to define the set of OGs that will be used to build the concatenated alignment. Although this can be done manually, <code>ete-build</code> offers several automatic options to discards OGs missing a given percentage of species.</p>
@@ -228,11 +228,12 @@ sp1_seqC   sp3_seqC    sp4_seqC    sp5_seqC</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre>%%bash 
-ete3 build -w clustalo_default-trimal01-none-none -m sptree_fasttree_100 -o basic_sptree/ --clearall -a data/proteome_seqs.fa.gz --cogs data/cogs.txt
+ete3 build --cpu <span class="m">4</span> -w clustalo_default-trimal01-none-none -m sptree_fasttree_100 -o basic_sptree/ <span class="se">\</span>
+    --clearall -a data/proteome_seqs.fa.gz --cogs data/cogs.txt
 </pre></div>
 
 </div>
@@ -268,7 +269,7 @@ Toolchain version: 2.0.3
 <span class="ansigreen">INFO</span> -  Testing x86-64  portable applications...
        clustalo: <span class="ansigreen">OK</span> - 1.2.1
 <span class="ansiyellow">Dialign-tx not supported in OS X</span>
-       fasttree: <span class="ansigreen">OK</span> - FastTree Version 2.1.8 Double precision (No SSE3), OpenMP (1 threads)
+       fasttree: <span class="ansigreen">OK</span> - FastTree Version 2.1.8 Double precision (No SSE3), OpenMP (2 threads)
          kalign: <span class="ansigreen">OK</span> - Kalign version 2.04, Copyright (C) 2004, 2005, 2006 Timo Lassmann
           mafft: <span class="ansigreen">OK</span> - MAFFT v6.861b (2011/09/24)
          muscle: <span class="ansigreen">OK</span> - MUSCLE v3.8.31 by Robert C. Edgar
@@ -282,22 +283,23 @@ Toolchain version: 2.0.3
          statal: <span class="ansigreen">OK</span> - statAl v1.4.rev6 build[2012-02-02]
         tcoffee: <span class="ansigreen">OK</span> - PROGRAM: T-COFFEE Version_11.00.8cbe486 (2014-08-12 22:05:29 - Revision 8cbe486 - Build 477)
          trimal: <span class="ansigreen">OK</span> - trimAl v1.4.rev6 build[2012-02-02]
-<span class="ansigreen">INFO</span> -  Starting ETE-build execution at Mon Feb  8 15:04:18 2016
+<span class="ansigreen">INFO</span> -  Starting ETE-build execution at Mon Feb  8 15:34:22 2016
 <span class="ansigreen">INFO</span> -  Output directory /Users/jhc/_Devel/cookbook/recipes/basic_sptree
 <span class="ansigreen">INFO</span> -  Erasing all existing npr data...
+<span class="ansigrey">WRNG</span> -  Using existing dir: /Users/jhc/_Devel/cookbook/recipes/basic_sptree/db
 <span class="ansigrey">WRNG</span> -  COG file restriction: 67820 sequences from 8 species 
 <span class="ansigreen">INFO</span> -  Reading aa sequences from data/proteome_seqs.fa.gz...
-loaded:0010000 skipped:0000000 scanned:0010000 - Approx. time to finish: 6.3secs
-loaded:0020000 skipped:0000000 scanned:0020000 - Approx. time to finish: 5.5secs
-loaded:0030000 skipped:0000000 scanned:0030000 - Approx. time to finish: 4.4secs
-loaded:0040000 skipped:0000000 scanned:0040000 - Approx. time to finish: 3.2secs
-loaded:0050000 skipped:0000000 scanned:0050000 - Approx. time to finish: 2.1secs
+loaded:0010000 skipped:0000000 scanned:0010000 - Approx. time to finish: 6.0secs
+loaded:0020000 skipped:0000000 scanned:0020000 - Approx. time to finish: 5.2secs
+loaded:0030000 skipped:0000000 scanned:0030000 - Approx. time to finish: 4.2secs
+loaded:0040000 skipped:0000000 scanned:0040000 - Approx. time to finish: 3.1secs
+loaded:0050000 skipped:0000000 scanned:0050000 - Approx. time to finish: 2.0secs
 loaded:0060000 skipped:0000000 scanned:0060000 - Approx. time to finish: 0.9secs
 <span class="ansigrey">WRNG</span> -  67820 target sequences
 <span class="ansigreen">INFO</span> -  ETE build starts now!
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:04:27 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (W) <span class="ansiblue">CogSelectorTask</span> (8 species, MCL-COGs, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:34:29 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (W) <span class="ansiblue">CogSelectorTask</span> (8 species, MCL-COGs, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -                       9606  found in single copy in   20123 (75.1%) COGs 
 <span class="ansigreen">INFO</span> -                      10090  found in single copy in   19167 (71.5%) COGs 
 <span class="ansigreen">INFO</span> -                      31033  found in single copy in   14422 (53.8%) COGs 
@@ -318,304 +320,118 @@ loaded:0060000 skipped:0000000 scanned:0060000 - Approx. time to finish: 0.9secs
 <span class="ansigreen">INFO</span> -                                507601 species present in     72 COGs (100.0%)
 <span class="ansigreen">INFO</span> -        72 COGs selected with at least 8 species out of 8
 <span class="ansigreen">INFO</span> -        Average COG size 8.0/8.0 +- 0.0
-<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansiblue">CogSelectorTask</span> (8 species, MCL-COGs, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansiblue">CogSelectorTask</span> (8 species, MCL-COGs, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:04:29 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (W) <span class="ansired">ConcatAlgTask</span> (8 species, 72 COGs, ConcatAlg, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:34:32 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (W) <span class="ansired">ConcatAlgTask</span> (8 species, 72 COGs, ConcatAlg, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:04:31 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (W) <span class="ansired">ConcatAlgTask</span> (8 species, 72 COGs, ConcatAlg, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:34:34 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (W) <span class="ansired">ConcatAlgTask</span> (8 species, 72 COGs, ConcatAlg, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:04:33 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansired">ConcatAlgTask</span> (8 species, 72 COGs, ConcatAlg, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:34:36 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansired">ConcatAlgTask</span> (8 species, 72 COGs, ConcatAlg, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:04:35 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansired">ConcatAlgTask</span> (8 species, 72 COGs, ConcatAlg, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:34:39 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansired">ConcatAlgTask</span> (8 species, 72 COGs, ConcatAlg, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:04:38 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansired">ConcatAlgTask</span> (8 species, 72 COGs, ConcatAlg, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:34:42 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (W) <span class="ansired">ConcatAlgTask</span> (8 species, 72 COGs, ConcatAlg, /<span class="ansigrey">cog_100-al...ttree_full</span>)
+<span class="ansigrey">WRNG</span> -       Concatenating trimmed alignments
+<span class="ansigrey">WRNG</span> -       Using aa concatenated alignment
+<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansired">ConcatAlgTask</span> (8 species, 72 COGs, ConcatAlg, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:04:40 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansired">ConcatAlgTask</span> (8 species, 72 COGs, ConcatAlg, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:34:44 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (W) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:04:42 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansired">ConcatAlgTask</span> (8 species, 72 COGs, ConcatAlg, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:34:46 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (W) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:04:44 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansired">ConcatAlgTask</span> (8 species, 72 COGs, ConcatAlg, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:34:48 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (Q) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:04:46 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansired">ConcatAlgTask</span> (8 species, 72 COGs, ConcatAlg, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:34:50 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:04:48 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansired">ConcatAlgTask</span> (8 species, 72 COGs, ConcatAlg, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:34:52 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:04:51 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (W) <span class="ansired">ConcatAlgTask</span> (8 species, 72 COGs, ConcatAlg, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigrey">WRNG</span> -       Concatenating aa trimmed alignment
-<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansired">ConcatAlgTask</span> (8 species, 72 COGs, ConcatAlg, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:34:54 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:04:54 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (W) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:34:56 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:04:56 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (W) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:34:58 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:04:58 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:35:00 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:00 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:35:02 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:02 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:35:04 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:04 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:35:06 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:06 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:35:08 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:08 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:35:10 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:10 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:35:12 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:12 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:35:14 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:14 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:35:16 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:16 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:35:18 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
+<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:18 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
-<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:20 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
-<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:22 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
-<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:24 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
-<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:26 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
-<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:28 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
-<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:30 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
-<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:32 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
-<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:34 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
-<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:36 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
-<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:38 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (<span class="ansired">R</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
-<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansigreen">TreeTask</span> (8 aa seqs, FastTree, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
-<span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
-<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:05:40 2016)
-<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
-<span class="ansigreen">INFO</span> -   (W) <span class="ansicyan">TreeMergeTask</span> (8 aa seqs, TreeMerger, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
-<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansicyan">TreeMergeTask</span> (8 aa seqs, TreeMerger, /<span class="ansigrey">brh_cog_10...ttree_full</span>)
+<span class="ansigreen">INFO</span> -  <span class="ansigrey"> Updating tasks status:</span> (Mon Feb  8 15:35:20 2016)
+<span class="ansigreen">INFO</span> -  Thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>: pending tasks: <span class="ansiyellow">1</span> of sizes: 8
+<span class="ansigreen">INFO</span> -   (W) <span class="ansicyan">TreeMergeTask</span> (8 aa seqs, TreeMerger, /<span class="ansigrey">cog_100-al...ttree_full</span>)
+<span class="ansigreen">INFO</span> -   (<span class="ansiblue">D</span>) <span class="ansicyan">TreeMergeTask</span> (8 aa seqs, TreeMerger, /<span class="ansigrey">cog_100-al...ttree_full</span>)
 <span class="ansigreen">INFO</span> -  <span class="ansigrey">Waiting 2 seconds</span>
 <span class="ansigreen">INFO</span> -  Assembling final tree...
-<span class="ansigreen">INFO</span> -  Done thread <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span> in 1 iteration(s)
-<span class="ansigreen">INFO</span> -  Writing final tree for <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>
-   /Users/jhc/_Devel/cookbook/recipes/basic_sptree/brh_cog_100-alg_concat_default-fasttree_full/proteome_seqs.fa.gz.final_tree.nw
-   /Users/jhc/_Devel/cookbook/recipes/basic_sptree/brh_cog_100-alg_concat_default-fasttree_full/proteome_seqs.fa.gz.final_tree.nwx (newick extended)
-<span class="ansigreen">INFO</span> -  Writing root node alignment <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>
-   /Users/jhc/_Devel/cookbook/recipes/basic_sptree/brh_cog_100-alg_concat_default-fasttree_full/proteome_seqs.fa.gz.final_tree.fa
-<span class="ansigreen">INFO</span> -  Generating tree image for <span class="ansigrey">brh_cog_100-alg_concat_default-fasttree_full</span>
-   /Users/jhc/_Devel/cookbook/recipes/basic_sptree/brh_cog_100-alg_concat_default-fasttree_full/proteome_seqs.fa.gz.final_tree.png
+<span class="ansigreen">INFO</span> -  Done thread <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span> in 1 iteration(s)
+<span class="ansigreen">INFO</span> -  Writing final tree for <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>
+   /Users/jhc/_Devel/cookbook/recipes/basic_sptree/cog_100-alg_concat_default-fasttree_full/proteome_seqs.fa.gz.final_tree.nw
+   /Users/jhc/_Devel/cookbook/recipes/basic_sptree/cog_100-alg_concat_default-fasttree_full/proteome_seqs.fa.gz.final_tree.nwx (newick extended)
+<span class="ansigreen">INFO</span> -  Writing root node alignment <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>
+   /Users/jhc/_Devel/cookbook/recipes/basic_sptree/cog_100-alg_concat_default-fasttree_full/proteome_seqs.fa.gz.final_tree.fa
+<span class="ansigreen">INFO</span> -  Generating tree image for <span class="ansigrey">cog_100-alg_concat_default-fasttree_full</span>
+   /Users/jhc/_Devel/cookbook/recipes/basic_sptree/cog_100-alg_concat_default-fasttree_full/proteome_seqs.fa.gz.final_tree.png
 <span class="ansigreen">INFO</span> -  Done
 <span class="ansigreen">INFO</span> -  Deleting temporal data...
    ========================================================================
