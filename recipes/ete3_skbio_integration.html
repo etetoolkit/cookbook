@@ -1,5 +1,5 @@
-
-
+<!DOCTYPE html>
+<html>
 <head><meta charset="utf-8" />
 <title>ete3_skbio_integration</title>
 
@@ -52,8 +52,10 @@
 .highlight .err { border: 1px solid #FF0000 } /* Error */
 .highlight .k { color: #008000; font-weight: bold } /* Keyword */
 .highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
 .highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
 .highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
 .highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
 .highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
 .highlight .gd { color: #A00000 } /* Generic.Deleted */
@@ -224,7 +226,7 @@ Saving to: ‘globin-aln.fasta’
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="kn">from</span> <span class="nn">skbio</span> <span class="kn">import</span> <span class="n">nj</span><span class="p">,</span> <span class="n">Alignment</span><span class="p">,</span> <span class="n">Protein</span>
-<span class="n">aln</span> <span class="o">=</span> <span class="n">Alignment</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s">&#39;globin-aln.fasta&#39;</span><span class="p">,</span>  <span class="n">constructor</span><span class="o">=</span><span class="n">Protein</span><span class="p">)</span>
+<span class="n">aln</span> <span class="o">=</span> <span class="n">Alignment</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;globin-aln.fasta&#39;</span><span class="p">,</span>  <span class="n">constructor</span><span class="o">=</span><span class="n">Protein</span><span class="p">)</span>
 <span class="n">dm</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">distances</span><span class="p">()</span>
 <span class="n">tree</span> <span class="o">=</span> <span class="n">nj</span><span class="p">(</span><span class="n">dm</span><span class="p">)</span>
 </pre></div>
@@ -242,10 +244,10 @@ Saving to: ‘globin-aln.fasta’
 <div class=" highlight hl-ipython2"><pre><span class="kn">from</span> <span class="nn">ete3</span> <span class="kn">import</span> <span class="n">Tree</span><span class="p">,</span> <span class="n">TreeStyle</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="o">.</span><span class="n">from_skbio</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
 <span class="n">t</span><span class="o">.</span><span class="n">dist</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">node</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span> <span class="o">&amp;</span> <span class="s">&quot;hemoglobin-human&quot;</span><span class="p">)</span>
-<span class="n">node</span><span class="o">.</span><span class="n">img_style</span><span class="p">[</span><span class="s">&quot;size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="n">node</span><span class="o">.</span><span class="n">img_style</span><span class="p">[</span><span class="s">&quot;fgcolor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;steelBlue&quot;</span>
-<span class="n">t</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%%</span><span class="s">inline&quot;</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">node</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span> <span class="o">&amp;</span> <span class="s2">&quot;hemoglobin-human&quot;</span><span class="p">)</span>
+<span class="n">node</span><span class="o">.</span><span class="n">img_style</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">node</span><span class="o">.</span><span class="n">img_style</span><span class="p">[</span><span class="s2">&quot;fgcolor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;steelBlue&quot;</span>
+<span class="n">t</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%%</span><span class="s2">inline&quot;</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -3982,10 +3984,10 @@ IhVgoBMREakAA52IiEgFGOhEREQqwEAnIiJSgf8Db0cHmcZZep0AAAAASUVORK5CYII=
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">ts</span> <span class="o">=</span> <span class="n">TreeStyle</span><span class="p">()</span>
 <span class="n">ts</span><span class="o">.</span><span class="n">show_branch_length</span> <span class="o">=</span> <span class="bp">True</span>
-<span class="n">ts</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s">&quot;c&quot;</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;c&quot;</span>
 <span class="n">ts</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">ts</span><span class="o">.</span><span class="n">arc_span</span> <span class="o">=</span> <span class="mi">320</span>
-<span class="n">t</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%%</span><span class="s">inline&quot;</span><span class="p">,</span> <span class="n">tree_style</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%%</span><span class="s2">inline&quot;</span><span class="p">,</span> <span class="n">tree_style</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -7976,4 +7978,4 @@ AABJRU5ErkJggg==
     </div>
   </div>
 </body>
-
+</html>
