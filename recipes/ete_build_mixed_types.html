@@ -176,7 +176,7 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Automatic-switching-from-amino-acid-to-codon-based-alignments">Automatic switching from amino-acid to codon-based alignments<a class="anchor-link" href="#Automatic-switching-from-amino-acid-to-codon-based-alignments">&#182;</a></h1><p>This recipe shows how to use <code>ete-build</code> to build nucleotide-based genes tress based on amino-acid alignments.</p>
 <p>For instance, if the average sequence identity in the amino-acid alignment is higher than a given threshold, ete-build will automatically translate the amino-acid alignment into a codon-based alignment and infer a tree based on the nucleotide models (codon-models are not supported).</p>
-<p>This is a useful approach when protein alignments do not provide enough phylogenetic resolution (i.e. synonymous mutations are masked), but you still want to use amino-acid based alignments for better accuarcy vs nucleotide-based ones.</p>
+<p>This is a useful approach when protein alignments do not provide enough phylogenetic resolution (i.e. synonymous mutations are masked), but you still want to use amino-acid based alignments for better accuracy vs nucleotide-based ones.</p>
 <h2 id="Requirements">Requirements<a class="anchor-link" href="#Requirements">&#182;</a></h2><ul>
 <li>ete3</li>
 <li>ete3_external_apps</li>
@@ -391,7 +391,7 @@ Toolchain version: 2.0.3
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>During executing, a warning like this was raised:</p>
 <p><strong><code>Switching to codon alignment! amino-acid sequence similarity: 0.91 &gt;= 0.90</code></strong></p>
-<p>In the results folder, both the amino acid and the nucleotide alignments will be reported. The condon-based alignment is called <code>"*.used_alg.fa"</code>, as this is the alignment actually used to build the reported tree.</p>
+<p>In the results folder, both the amino acid and the nucleotide alignments will be reported. The codon-based alignment is called <code>"*.used_alg.fa"</code>, as this is the alignment actually used to build the reported tree.</p>
 
 </div>
 </div>
