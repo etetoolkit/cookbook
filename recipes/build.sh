@@ -1,4 +1,4 @@
-for x in index.ipynb ete*.ipynb; do ipython nbconvert --template basic --to=html $x; done
+for x in index.ipynb ete*.ipynb; do ipython nbconvert --template full --to=html $x; done
 sed -i.delete 's/<html>//g' *.html
 sed -i.delete 's/<\/html>//g' *.html
 sed -i.delete 's/<\!DOCTYPE html>//g' *.html
