@@ -4,9 +4,36 @@
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Basic-phylogenetic-tree-reconstruction-using-ete-build">Basic phylogenetic tree reconstruction using <code>ete-build</code><a class="anchor-link" href="#Basic-phylogenetic-tree-reconstruction-using-ete-build">&#182;</a></h1><p>This recipe shows <strong>basic concepts</strong> for the use the <strong>ete-build</strong> tool. 
+<h1 id="Basic-phylogenetic-tree-reconstruction-using-ete-build">Basic phylogenetic tree reconstruction using <code>ete-build</code><a class="anchor-link" href="#Basic-phylogenetic-tree-reconstruction-using-ete-build">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This recipe shows <strong>basic concepts</strong> for the use the <strong>ete-build</strong> tool. 
 It also shows how to build a phylogenetic tree from scratch using predefined workflows.</p>
-<h2 id="Requirements">Requirements<a class="anchor-link" href="#Requirements">&#182;</a></h2><ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Requirements">Requirements<a class="anchor-link" href="#Requirements">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
 <li><p><code>ete3</code></p>
 </li>
 <li><p><code>ete3_external_apps</code></p>
@@ -30,7 +57,16 @@ It also shows how to build a phylogenetic tree from scratch using predefined wor
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Recipe">Recipe<a class="anchor-link" href="#Recipe">&#182;</a></h2><h3 id="1.-Check-that-all-external-applications-are-available">1. Check that all external applications are available<a class="anchor-link" href="#1.-Check-that-all-external-applications-are-available">&#182;</a></h3>
+<h2 id="Recipe">Recipe<a class="anchor-link" href="#Recipe">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="1.-Check-that-all-external-applications-are-available">1. Check that all external applications are available<a class="anchor-link" href="#1.-Check-that-all-external-applications-are-available">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -93,7 +129,16 @@ Current Toolchain version: 2.0.3
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.-Have-a-look-at-the-available-predefined-workflows">2. Have a look at the available predefined workflows<a class="anchor-link" href="#2.-Have-a-look-at-the-available-predefined-workflows">&#182;</a></h3><p>A list of predefined worlflows can be found here, but you can always query <code>ete-build</code> for available options.</p>
+<h3 id="2.-Have-a-look-at-the-available-predefined-workflows">2. Have a look at the available predefined workflows<a class="anchor-link" href="#2.-Have-a-look-at-the-available-predefined-workflows">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A list of predefined worlflows can be found here, but you can always query <code>ete-build</code> for available options.</p>
 
 </div>
 </div>
@@ -235,7 +280,16 @@ standard_trimmed_fasttree                | Computes a tree using ClustalOmega wi
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="3.-Prepare-your-sequences-as-a-FASTA-file">3. Prepare your sequences as a FASTA file<a class="anchor-link" href="#3.-Prepare-your-sequences-as-a-FASTA-file">&#182;</a></h3><ul>
+<h3 id="3.-Prepare-your-sequences-as-a-FASTA-file">3. Prepare your sequences as a FASTA file<a class="anchor-link" href="#3.-Prepare-your-sequences-as-a-FASTA-file">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
 <li><p>Although <code>ete-build</code> perform some basic checks on the input file, make sure that your data is correctly encoded as FASTA format.</p>
 </li>
 <li><p>It is recommended that the header of the FASTA file does not contain weird symbols and that sequence names are not duplicated (ete will raise an error otherwise).</p>
@@ -295,7 +349,16 @@ QPAAAPFSLGGQPSATLTASTSQGPTLSFGSKLGVTTTASTTTAASTAPLLGTTGPVLFA
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="4.-Pick-a-workflow-name-from-the-list-in-step-2-and-run-it">4. Pick a workflow name from the list in step 2 and run it<a class="anchor-link" href="#4.-Pick-a-workflow-name-from-the-list-in-step-2-and-run-it">&#182;</a></h3><p>Only three parameters are required:</p>
+<h3 id="4.-Pick-a-workflow-name-from-the-list-in-step-2-and-run-it">4. Pick a workflow name from the list in step 2 and run it<a class="anchor-link" href="#4.-Pick-a-workflow-name-from-the-list-in-step-2-and-run-it">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Only three parameters are required:</p>
 <ul>
 <li>Use <code>-a</code> to provide an amino acid sequence file (or <code>-n</code> for nucleotides)</li>
 <li><code>-o</code> to define the output directory (should not exist, otherwise <code>--resume</code> or <code>--clearall</code> flags will be necessary)</li>
@@ -6221,7 +6284,16 @@ ete3 view --image tree.svg -t NUP62_tree/clustalo_default-none-none-fasttree_ful
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="6.-Load-tree-and-alignment-using-the-ete3-API-for-further-analysis">6. Load tree and alignment using the ete3 API for further analysis<a class="anchor-link" href="#6.-Load-tree-and-alignment-using-the-ete3-API-for-further-analysis">&#182;</a></h3><p>remember that the Python API allows you to do much more, from rooting, traversing or node manipulation to custom visualization.</p>
+<h3 id="6.-Load-tree-and-alignment-using-the-ete3-API-for-further-analysis">6. Load tree and alignment using the ete3 API for further analysis<a class="anchor-link" href="#6.-Load-tree-and-alignment-using-the-ete3-API-for-further-analysis">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>remember that the Python API allows you to do much more, from rooting, traversing or node manipulation to custom visualization.</p>
 <p>Load the tree using the <code>ete3</code> Python module, and operate with it as a Python object.</p>
 
 </div>

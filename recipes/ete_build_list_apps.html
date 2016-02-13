@@ -1,0 +1,513 @@
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">&#182;</a></h1><ul>
+<li><a href="#List-of-gene-tree-workflows">List of gene tree workflows</a></li>
+<li><a href="#List-of-aligners">List of aligners</a></li>
+<li><a href="#List-of-aligner-cleaners">List of aligner cleaners</a></li>
+<li><a href="#List-of-model-testers">List of model testers</a></li>
+<li><a href="#List-of-tree-builders">List of tree builders</a></li>
+<li><a href="#List-of-species-tree-workflows">List of species tree workflows</a></li>
+<li><a href="#Inspect-workflow-details">Inspect workflow details</a></li>
+<li><a href="#Inspect-application-details">Inspect application details</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="List-of-gene-tree-workflows">List of gene tree workflows<a class="anchor-link" href="#List-of-gene-tree-workflows">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="o">!</span>ete3 build workflows genetree
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+--------------------------------------------------------------------------------------------------------------------
+                                                 GeneTree Workflows                                                 
+--------------------------------------------------------------------------------------------------------------------
+Worflow name                             | Description                                                  | threads   
+======================================== | ============================================================ | ==========
+phylomedb4                               | Worflow described in Huerta-Cepas, et al (Nucleic Acid Resea | 1         
+                                         | rch, 2013) and used in http://PhylomeDB.org                  |           
+eggnog41                                 | Workflow used in the EggNOG orthology database and based on  | 1         
+                                         | the phylomedb4 workflow                                      |           
+ensembl_small                            | Experimental (do not use yet)                                | 1         
+ensembl_large                            | Experimental (do not use yet)                                | 1         
+full_modeltest                           | Complete (and slow) pipeline testing all evolutionary models | 1         
+                                         |  and inferring tree with Phyml                               |           
+full_modeltest_bootstrap                 | Complete (and slow) pipeline testing all evolutionary models | 1         
+                                         |  and inferring tree with Phyml and 100 bootstraps            |           
+full_fast_modeltest                      | Test all evolutionary models using NJ inference and computes | 1         
+                                         |  final tree with Phyml                                       |           
+full_fast_modeltest_bootstrap            | Test all evolutionary models using NJ inference and computes | 1         
+                                         |  final tree with Phyml and 100 bootstraps                    |           
+full_ultrafast_modeltest                 | Test all evolutionary models using NJ inference with no F, I | 1         
+                                         |  and G estimation and computes final tree with Phyml         |           
+full_ultrafast_modeltest_bootstrap       | Test all evolutionary models using NJ inference with no F, I | 1         
+                                         |  and G estimation and computes final tree with Phyml and 100 |           
+                                         |  bootstraps                                                  |           
+soft_modeltest                           | Complete (and slow) pipeline testing 5 protein evolutionary  | 1         
+                                         | models and inferring tree with Phyml                         |           
+soft_modeltest_bootstrap                 | Complete (and slow) pipeline testing 5 protein evolutionary  | 1         
+                                         | models and inferring tree with Phyml and 100 bootstraps      |           
+soft_fast_modeltest                      | Test 5 protein evolutionary models using NJ inference and co | 1         
+                                         | mputes final tree with Phyml                                 |           
+soft_fast_modeltest_bootstrap            | Test 5 protein evolutionary models using NJ inference and co | 1         
+                                         | mputes final tree with Phyml and 100 bootstraps              |           
+soft_ultrafast_modeltest                 | Test 5 protein evolutionary models using NJ inference with n | 1         
+                                         | o F, I and G estimation and computes final tree with Phyml   |           
+soft_ultrafast_modeltest_bootstrap       | Test 5 protein evolutionary models using NJ inference with n | 1         
+                                         | o F, I and G estimation and computes final tree with Phyml a |           
+                                         | nd 100 bootstraps                                            |           
+standard_raxml                           | Computes a tree using ClustalOmega with default parameters a | 1         
+                                         | s aligner and RAxML                                          |           
+standard_raxml_bootstrap                 | Computes a tree using ClustalOmega with default parameters a | 1         
+                                         | s alignerand RAxML with 100 bootstraps                       |           
+standard_phyml                           | Computes a tree using ClustalOmega with default parameters a | 1         
+                                         | s aligner and Phyml                                          |           
+standard_phyml_bootstrap                 | Computes a tree using ClustalOmega with default parameters a | 1         
+                                         | s aligner and Phyml and 100 bootstraps                       |           
+standard_fasttree                        | Computes a tree using ClustalOmega with default parameters a | 1         
+                                         | s aligner and FastTree                                       |           
+standard_trimmed_raxml                   | Computes a tree using default ClustalOmega as aligner, trimA | 1         
+                                         | l for alg. cleaning and RAxML                                |           
+standard_trimmed_raxml_bootstrap         | Computes a tree using ClustalOmega with default parameters,  | 1         
+                                         | trimAl for alg. cleaning and RAxML with 100 bootstraps       |           
+standard_trimmed_phyml                   | Computes a tree using ClustalOmega with default parameters,  | 1         
+                                         | trimAl for alg. cleaning as aligner and Phyml                |           
+standard_trimmed_phyml_bootstrap         | Computes a tree using ClustalOmega with default parameters,  | 1         
+                                         | trimAl for alg. cleaning as aligner and Phyml and 100 bootst |           
+                                         | raps                                                         |           
+standard_trimmed_fasttree                | Computes a tree using ClustalOmega with default parameters,  | 1         
+                                         | trimAl for alg. cleaning as aligner and FastTree             |           
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="List-of-aligners">List of aligners<a class="anchor-link" href="#List-of-aligners">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="o">!</span>ete3 build apps aligners
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>----------------------------------------------------------------------------------------------------------
+                                                 aligners                                                 
+----------------------------------------------------------------------------------------------------------
+name                 | app type   | desc.                                                                 
+==================== | ========== | ======================================================================
+metaligner_phylomedb | metaligner | Meta-aligning based on head/tail alignments produced by muscle, mafft 
+                     |            | and dialign-tx, scanned with M-Coffee. Unconsistent columns are remove
+                     |            | d and final alignment is cleaned with trimAl                          
+metaligner_trimmed   | metaligner | Meta-aligning based on head/tail alignments produced by muscle, mafft 
+                     |            | and clustalomega, scanned with M-Coffee. Unconsistent columns are remo
+                     |            | ved and final alignment is cleaned with trimAl                        
+metaligner_default   | metaligner | Meta-aligning based on head/tail alignments produced by muscle, mafft 
+                     |            | and clustalomega, scanned with M-Coffee. Unconsistent columns are remo
+                     |            | ved                                                                   
+tcoffee_default      | tcoffee    | (EXPERIMENTAL) tcoffee alignment with default paramerters             
+mcoffee_ensembl      | tcoffee    | (EXPERIMENTAL) mcoffee alignment as used in the Ensembl database      
+muscle_default       | muscle     | muscle alignment with default parameters                              
+mafft_default        | mafft      | mafft alignment with default parameters                               
+mafft_einsi          | mafft      | mafft alignment using the E-INS-i mode                                
+mafft_linsi          | mafft      | mafft alignment using the L-INS-i mode                                
+mafft_ginsi          | mafft      | mafft alignment using the G-INS-i mode                                
+clustalo_default     | clustalo   | clustalo with default parameters                                      
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="List-of-aligner-cleaners">List of aligner cleaners<a class="anchor-link" href="#List-of-aligner-cleaners">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="o">!</span>ete3 build apps <span class="s2">&quot;alg cleaners&quot;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>--------------------------------------------------------------------------------------
+                                     alg cleaners                                     
+--------------------------------------------------------------------------------------
+name            | app type | desc.                                                    
+=============== | ======== | =========================================================
+trimal001       | trimal   | trimal alignment cleaning removing columns with &gt;1% gaps 
+trimal01        | trimal   | trimal alignment cleaning removing columns with &gt;10% gaps
+trimal02        | trimal   | trimal alignment cleaning removing columns with &gt;20% gaps
+trimal03        | trimal   | trimal alignment cleaning removing columns with &gt;30% gaps
+trimal05        | trimal   | trimal alignment cleaning removing columns with &gt;50% gaps
+trimal_gappyout | trimal   | trimal alignment cleaning using gappyout algorithm       
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="List-of-model-testers">List of model testers<a class="anchor-link" href="#List-of-model-testers">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="o">!</span>ete3 build apps <span class="s2">&quot;model testers&quot;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>---------------------------------------------------------------------------------------------------------------
+                                                 model testers                                                 
+---------------------------------------------------------------------------------------------------------------
+name                      | app type   | desc.                                                                 
+========================= | ========== | ======================================================================
+prottest_default          | prottest   | Uses BioNJ trees to select best protein model from: JTT, WAG, VT, LG a
+                          |            | nd MtREV. Fixed parameters: +G+I+F                                    
+pmodeltest_full_ultrafast | pmodeltest | Test all models using NJ tree inference and skipping gamma, invariant 
+                          |            | sites, and frequency site estimations (!G!I!F)                        
+pmodeltest_full_fast      | pmodeltest | Test all models using NJ tree inference                               
+pmodeltest_full_slow      | pmodeltest | Test all models using ML tree inference                               
+pmodeltest_soft_ultrafast | pmodeltest | Test JTT,WAG,VT,LG,MtREV models using NJ tree inference and skipping g
+                          |            | amma, invariant sites, and frequency site estimation (!G!I!F)         
+pmodeltest_soft_fast      | pmodeltest | Test JTT,WAG,VT,LG,MtREV models using NJ tree inference               
+pmodeltest_soft_slow      | pmodeltest | Test JTT,WAG,VT,LG,MtREV models using ML tree inference               
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="List-of-tree-builders">List of tree builders<a class="anchor-link" href="#List-of-tree-builders">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="o">!</span>ete3 build apps <span class="s2">&quot;tree builders&quot;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-----------------------------------------------------------------------------------------------------------
+                                               tree builders                                               
+-----------------------------------------------------------------------------------------------------------
+name                    | app type | desc.                                                                 
+======================= | ======== | ======================================================================
+bionj_default           | phyml    | BioNJ tree inferred with Phyml. default models JTT/GTR                
+fasttree_default        | fasttree | Fasttree with default parameters                                      
+fasttree_full           | fasttree | Fasttree with slow NNI and MLACC=3                                    
+phyml_default           | phyml    | Phyml tree using +G+I+F, 4 classes and aLRT branch supports. Default m
+                        |          | odels JTT/GTR                                                         
+phyml_default_bootstrap | phyml    | Phyml tree using +G+I+F, 4 classes and 100 bootstraps. Default models 
+                        |          | JTT/GTR                                                               
+raxml_default           | raxml    | RAxML with default parameters, GAMMA JTT/GTR and aLRT branch supports.
+raxml_default_bootstrap | raxml    | RAxML with default parameters, GAMMA JTT/GTR and 100 boostrap replicat
+                        |          | es                                                                    
+treebest_ensembl        | phyml    | (EXPERIMENTAL)                                                        
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="List-of-species-tree-workflows">List of species tree workflows<a class="anchor-link" href="#List-of-species-tree-workflows">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="o">!</span>ete3 build workflows supermatrix
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+--------------------------------------------------------------------------------------------------------------------
+                                               Supermatrix Workflows                                                
+--------------------------------------------------------------------------------------------------------------------
+Worflow name                             | Description                                                  | threads   
+======================================== | ============================================================ | ==========
+sptree_fasttree_100                      | Selects COGs present in all target species, make a concatena | 1         
+                                         | ted alignment and build a tree with FastTree                 |           
+sptree_fasttree_95                       | Selects COGs present in at least 95% of the target species,  | 1         
+                                         | make a concatenated alignment and build a tree with FastTree |           
+sptree_fasttree_90                       | Selects COGs present in at least 90% of the target species,  | 1         
+                                         | make a concatenated alignment and build a tree with FastTree |           
+sptree_fasttree_85                       | Selects COGs present in at least 85% of the target species,  | 1         
+                                         | make a concatenated alignment and build a tree with FastTree |           
+sptree_fasttree_all                      | Selects all COGS regardless of how many species are represen | 1         
+                                         | ted, make a concatenated alignment and build a tree with Fas |           
+                                         | tTree                                                        |           
+sptree_raxml_100                         | Selects COGs present in all target species, make a concatena | 1         
+                                         | ted alignment and build a tree with RAxML                    |           
+sptree_raxml_95                          | Selects COGs present in at least 95% of the target species,  | 1         
+                                         | make a concatenated alignment and build a tree with RAxML    |           
+sptree_raxml_90                          | Selects COGs present in at least 90% of the target species,  | 1         
+                                         | make a concatenated alignment and build a tree with RAxML    |           
+sptree_raxml_85                          | Selects COGs present in at least 85% of the target species,  | 1         
+                                         | make a concatenated alignment and build a tree with RAxML    |           
+sptree_raxml_all                         | Selects all COGS regardless of how many species are represen | 1         
+                                         | ted, make a concatenated alignment and build a tree with RAx |           
+                                         | ML                                                           |           
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Inspect-workflow-details">Inspect workflow details<a class="anchor-link" href="#Inspect-workflow-details">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>(<code>ete3 build show</code> for inspecting / <code>ete3 build dump</code> for raw ouput )</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="o">!</span>ete3 build show standard_raxml
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre><span class="ansiyellow">[genetree_meta_workflow]</span>
+standard_raxml = clustalo_default-none-none-raxml_default
+
+<span class="ansiyellow">[clustalo_default-none-none-raxml_default]</span>
+<span class="ansiyellow">                   _aa_tree_builder</span> = @raxml_default
+<span class="ansiyellow">                        _aa_aligner</span> = @clustalo_default
+<span class="ansiyellow">                    _nt_alg_cleaner</span> = none
+<span class="ansiyellow">                   _aa_model_tester</span> = none
+<span class="ansiyellow">                   _nt_tree_builder</span> = @raxml_default
+<span class="ansiblue">                               _app = genetree</span>
+<span class="ansiyellow">                        _nt_aligner</span> = @clustalo_default
+<span class="ansiyellow">                    _aa_alg_cleaner</span> = none
+<span class="ansiyellow">                   _nt_model_tester</span> = none
+<span class="ansiyellow">                            _appset</span> = @builtin_apps
+
+<span class="ansiyellow">[clustalo_default]</span>
+<span class="ansiyellow">                              _desc</span> = clustalo with default parameters
+<span class="ansiblue">                               _app = clustalo</span>
+
+<span class="ansiyellow">[raxml_default]</span>
+<span class="ansiyellow">                              _desc</span> = RAxML with default parameters, GAMMA JTT/GTR and aLRT branch supports.
+<span class="ansiblue">                               _app = raxml</span>
+<span class="ansiyellow">                         _bootstrap</span> = alrt
+<span class="ansiyellow">                            _method</span> = GAMMA
+<span class="ansiyellow">                          _aa_model</span> = JTT
+<span class="ansiyellow">                      _model_suffix</span> = 
+<span class="ansiyellow">                                 -f</span> = d
+<span class="ansiyellow">                                 -p</span> = 31416
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Inspect-application-details">Inspect application details<a class="anchor-link" href="#Inspect-application-details">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>(<code>ete3 build show</code> for inspecting / <code>ete3 build dump</code> for raw ouput )</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="o">!</span>ete3 build show pmodeltest_soft_ultrafast
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre><span class="ansiyellow">[pmodeltest_soft_ultrafast]</span>
+<span class="ansiyellow">                              _desc</span> = Test JTT,WAG,VT,LG,MtREV models using NJ tree inference and skipping gamma, invariant sites, and frequency site estimation (!G!I!F)
+<span class="ansiblue">                               _app = pmodeltest</span>
+<span class="ansiyellow">                         _aa_models</span> = JTT,WAG,VT,LG,MtREV
+<span class="ansiyellow">                         _nt_models</span> = GTR
+<span class="ansiyellow">                             --fast</span> = 
+<span class="ansiyellow">                            --noinv</span> = 
+<span class="ansiyellow">                            --nogam</span> = 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
