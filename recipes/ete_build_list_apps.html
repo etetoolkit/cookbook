@@ -29,7 +29,7 @@
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="o">!</span>ete3 build workflows genetree
@@ -46,64 +46,59 @@
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
---------------------------------------------------------------------------------------------------------------------
-                                                 GeneTree Workflows                                                 
---------------------------------------------------------------------------------------------------------------------
-Worflow name                             | Description                                                  | threads   
-======================================== | ============================================================ | ==========
-phylomedb4                               | Worflow described in Huerta-Cepas, et al (Nucleic Acid Resea | 1         
-                                         | rch, 2013) and used in http://PhylomeDB.org                  |           
-eggnog41                                 | Workflow used in the EggNOG orthology database and based on  | 1         
-                                         | the phylomedb4 workflow                                      |           
-ensembl_small                            | Experimental (do not use yet)                                | 1         
-ensembl_large                            | Experimental (do not use yet)                                | 1         
-full_modeltest                           | Complete (and slow) pipeline testing all evolutionary models | 1         
-                                         |  and inferring tree with Phyml                               |           
-full_modeltest_bootstrap                 | Complete (and slow) pipeline testing all evolutionary models | 1         
-                                         |  and inferring tree with Phyml and 100 bootstraps            |           
-full_fast_modeltest                      | Test all evolutionary models using NJ inference and computes | 1         
-                                         |  final tree with Phyml                                       |           
-full_fast_modeltest_bootstrap            | Test all evolutionary models using NJ inference and computes | 1         
-                                         |  final tree with Phyml and 100 bootstraps                    |           
-full_ultrafast_modeltest                 | Test all evolutionary models using NJ inference with no F, I | 1         
-                                         |  and G estimation and computes final tree with Phyml         |           
-full_ultrafast_modeltest_bootstrap       | Test all evolutionary models using NJ inference with no F, I | 1         
-                                         |  and G estimation and computes final tree with Phyml and 100 |           
-                                         |  bootstraps                                                  |           
-soft_modeltest                           | Complete (and slow) pipeline testing 5 protein evolutionary  | 1         
-                                         | models and inferring tree with Phyml                         |           
-soft_modeltest_bootstrap                 | Complete (and slow) pipeline testing 5 protein evolutionary  | 1         
-                                         | models and inferring tree with Phyml and 100 bootstraps      |           
-soft_fast_modeltest                      | Test 5 protein evolutionary models using NJ inference and co | 1         
-                                         | mputes final tree with Phyml                                 |           
-soft_fast_modeltest_bootstrap            | Test 5 protein evolutionary models using NJ inference and co | 1         
-                                         | mputes final tree with Phyml and 100 bootstraps              |           
-soft_ultrafast_modeltest                 | Test 5 protein evolutionary models using NJ inference with n | 1         
-                                         | o F, I and G estimation and computes final tree with Phyml   |           
-soft_ultrafast_modeltest_bootstrap       | Test 5 protein evolutionary models using NJ inference with n | 1         
-                                         | o F, I and G estimation and computes final tree with Phyml a |           
-                                         | nd 100 bootstraps                                            |           
-standard_raxml                           | Computes a tree using ClustalOmega with default parameters a | 1         
-                                         | s aligner and RAxML                                          |           
-standard_raxml_bootstrap                 | Computes a tree using ClustalOmega with default parameters a | 1         
-                                         | s alignerand RAxML with 100 bootstraps                       |           
-standard_phyml                           | Computes a tree using ClustalOmega with default parameters a | 1         
-                                         | s aligner and Phyml                                          |           
-standard_phyml_bootstrap                 | Computes a tree using ClustalOmega with default parameters a | 1         
-                                         | s aligner and Phyml and 100 bootstraps                       |           
-standard_fasttree                        | Computes a tree using ClustalOmega with default parameters a | 1         
-                                         | s aligner and FastTree                                       |           
-standard_trimmed_raxml                   | Computes a tree using default ClustalOmega as aligner, trimA | 1         
-                                         | l for alg. cleaning and RAxML                                |           
-standard_trimmed_raxml_bootstrap         | Computes a tree using ClustalOmega with default parameters,  | 1         
-                                         | trimAl for alg. cleaning and RAxML with 100 bootstraps       |           
-standard_trimmed_phyml                   | Computes a tree using ClustalOmega with default parameters,  | 1         
-                                         | trimAl for alg. cleaning as aligner and Phyml                |           
-standard_trimmed_phyml_bootstrap         | Computes a tree using ClustalOmega with default parameters,  | 1         
-                                         | trimAl for alg. cleaning as aligner and Phyml and 100 bootst |           
-                                         | raps                                                         |           
-standard_trimmed_fasttree                | Computes a tree using ClustalOmega with default parameters,  | 1         
-                                         | trimAl for alg. cleaning as aligner and FastTree             |           
+----------------------------------------------------------------------------------------------------------------------------------------
+                                                           GeneTree Workflows                                                           
+----------------------------------------------------------------------------------------------------------------------------------------
+Worflow name                             | Description                                                                      | threads   
+======================================== | ================================================================================ | ==========
+phylomedb4                               | Worflow described in Huerta-Cepas, et al (Nucleic Acid Research, 2013) and used  | 1         
+                                         | in http://PhylomeDB.org                                                          |           
+eggnog41                                 | Workflow used in the EggNOG orthology database and based on the phylomedb4 workf | 1         
+                                         | low                                                                              |           
+ensembl_small                            | Experimental (do not use yet)                                                    | 1         
+ensembl_large                            | Experimental (do not use yet)                                                    | 1         
+full_modeltest                           | Complete (and slow) pipeline testing all evolutionary models and inferring tree  | 1         
+                                         | with Phyml                                                                       |           
+full_modeltest_bootstrap                 | Complete (and slow) pipeline testing all evolutionary models and inferring tree  | 1         
+                                         | with Phyml and 100 bootstraps                                                    |           
+full_fast_modeltest                      | Test all evolutionary models using NJ inference and computes final tree with Phy | 1         
+                                         | ml                                                                               |           
+full_fast_modeltest_bootstrap            | Test all evolutionary models using NJ inference and computes final tree with Phy | 1         
+                                         | ml and 100 bootstraps                                                            |           
+full_ultrafast_modeltest                 | Test all evolutionary models using NJ inference with no F, I and G estimation an | 1         
+                                         | d computes final tree with Phyml                                                 |           
+full_ultrafast_modeltest_bootstrap       | Test all evolutionary models using NJ inference with no F, I and G estimation an | 1         
+                                         | d computes final tree with Phyml and 100 bootstraps                              |           
+soft_modeltest                           | Complete (and slow) pipeline testing 5 protein evolutionary models and inferring | 1         
+                                         |  tree with Phyml                                                                 |           
+soft_modeltest_bootstrap                 | Complete (and slow) pipeline testing 5 protein evolutionary models and inferring | 1         
+                                         |  tree with Phyml and 100 bootstraps                                              |           
+soft_fast_modeltest                      | Test 5 protein evolutionary models using NJ inference and computes final tree wi | 1         
+                                         | th Phyml                                                                         |           
+soft_fast_modeltest_bootstrap            | Test 5 protein evolutionary models using NJ inference and computes final tree wi | 1         
+                                         | th Phyml and 100 bootstraps                                                      |           
+soft_ultrafast_modeltest                 | Test 5 protein evolutionary models using NJ inference with no F, I and G estimat | 1         
+                                         | ion and computes final tree with Phyml                                           |           
+soft_ultrafast_modeltest_bootstrap       | Test 5 protein evolutionary models using NJ inference with no F, I and G estimat | 1         
+                                         | ion and computes final tree with Phyml and 100 bootstraps                        |           
+standard_raxml                           | Computes a tree using ClustalOmega with default parameters as aligner and RAxML  | 1         
+standard_raxml_bootstrap                 | Computes a tree using ClustalOmega with default parameters as alignerand RAxML w | 1         
+                                         | ith 100 bootstraps                                                               |           
+standard_phyml                           | Computes a tree using ClustalOmega with default parameters as aligner and Phyml  | 1         
+standard_phyml_bootstrap                 | Computes a tree using ClustalOmega with default parameters as aligner and Phyml  | 1         
+                                         | and 100 bootstraps                                                               |           
+standard_fasttree                        | Computes a tree using ClustalOmega with default parameters as aligner and FastTr | 1         
+                                         | ee                                                                               |           
+standard_trimmed_raxml                   | Computes a tree using default ClustalOmega as aligner, trimAl for alg. cleaning  | 1         
+                                         | and RAxML                                                                        |           
+standard_trimmed_raxml_bootstrap         | Computes a tree using ClustalOmega with default parameters, trimAl for alg. clea | 1         
+                                         | ning and RAxML with 100 bootstraps                                               |           
+standard_trimmed_phyml                   | Computes a tree using ClustalOmega with default parameters, trimAl for alg. clea | 1         
+                                         | ning as aligner and Phyml                                                        |           
+standard_trimmed_phyml_bootstrap         | Computes a tree using ClustalOmega with default parameters, trimAl for alg. clea | 1         
+                                         | ning as aligner and Phyml and 100 bootstraps                                     |           
+standard_trimmed_fasttree                | Computes a tree using ClustalOmega with default parameters, trimAl for alg. clea | 1         
+                                         | ning as aligner and FastTree                                                     |           
 </pre>
 </div>
 </div>
@@ -123,7 +118,7 @@ standard_trimmed_fasttree                | Computes a tree using ClustalOmega wi
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="o">!</span>ete3 build apps aligners
@@ -181,7 +176,7 @@ clustalo_default     | clustalo   | clustalo with default parameters
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="o">!</span>ete3 build apps <span class="s2">&quot;alg cleaners&quot;</span>
@@ -228,7 +223,7 @@ trimal_gappyout | trimal   | trimal alignment cleaning using gappyout algorithm
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="o">!</span>ete3 build apps <span class="s2">&quot;model testers&quot;</span>
@@ -279,7 +274,7 @@ pmodeltest_soft_slow      | pmodeltest | Test JTT,WAG,VT,LG,MtREV models using M
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="o">!</span>ete3 build apps <span class="s2">&quot;tree builders&quot;</span>
@@ -331,7 +326,7 @@ treebest_ensembl        | phyml    | (EXPERIMENTAL)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="o">!</span>ete3 build workflows supermatrix
@@ -348,33 +343,31 @@ treebest_ensembl        | phyml    | (EXPERIMENTAL)
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
---------------------------------------------------------------------------------------------------------------------
-                                               Supermatrix Workflows                                                
---------------------------------------------------------------------------------------------------------------------
-Worflow name                             | Description                                                  | threads   
-======================================== | ============================================================ | ==========
-sptree_fasttree_100                      | Selects COGs present in all target species, make a concatena | 1         
-                                         | ted alignment and build a tree with FastTree                 |           
-sptree_fasttree_95                       | Selects COGs present in at least 95% of the target species,  | 1         
-                                         | make a concatenated alignment and build a tree with FastTree |           
-sptree_fasttree_90                       | Selects COGs present in at least 90% of the target species,  | 1         
-                                         | make a concatenated alignment and build a tree with FastTree |           
-sptree_fasttree_85                       | Selects COGs present in at least 85% of the target species,  | 1         
-                                         | make a concatenated alignment and build a tree with FastTree |           
-sptree_fasttree_all                      | Selects all COGS regardless of how many species are represen | 1         
-                                         | ted, make a concatenated alignment and build a tree with Fas |           
-                                         | tTree                                                        |           
-sptree_raxml_100                         | Selects COGs present in all target species, make a concatena | 1         
-                                         | ted alignment and build a tree with RAxML                    |           
-sptree_raxml_95                          | Selects COGs present in at least 95% of the target species,  | 1         
-                                         | make a concatenated alignment and build a tree with RAxML    |           
-sptree_raxml_90                          | Selects COGs present in at least 90% of the target species,  | 1         
-                                         | make a concatenated alignment and build a tree with RAxML    |           
-sptree_raxml_85                          | Selects COGs present in at least 85% of the target species,  | 1         
-                                         | make a concatenated alignment and build a tree with RAxML    |           
-sptree_raxml_all                         | Selects all COGS regardless of how many species are represen | 1         
-                                         | ted, make a concatenated alignment and build a tree with RAx |           
-                                         | ML                                                           |           
+----------------------------------------------------------------------------------------------------------------------------------------
+                                                         Supermatrix Workflows                                                          
+----------------------------------------------------------------------------------------------------------------------------------------
+Worflow name                             | Description                                                                      | threads   
+======================================== | ================================================================================ | ==========
+sptree_fasttree_100                      | Selects COGs present in all target species, make a concatenated alignment and bu | 1         
+                                         | ild a tree with FastTree                                                         |           
+sptree_fasttree_95                       | Selects COGs present in at least 95% of the target species, make a concatenated  | 1         
+                                         | alignment and build a tree with FastTree                                         |           
+sptree_fasttree_90                       | Selects COGs present in at least 90% of the target species, make a concatenated  | 1         
+                                         | alignment and build a tree with FastTree                                         |           
+sptree_fasttree_85                       | Selects COGs present in at least 85% of the target species, make a concatenated  | 1         
+                                         | alignment and build a tree with FastTree                                         |           
+sptree_fasttree_all                      | Selects all COGS regardless of how many species are represented, make a concaten | 1         
+                                         | ated alignment and build a tree with FastTree                                    |           
+sptree_raxml_100                         | Selects COGs present in all target species, make a concatenated alignment and bu | 1         
+                                         | ild a tree with RAxML                                                            |           
+sptree_raxml_95                          | Selects COGs present in at least 95% of the target species, make a concatenated  | 1         
+                                         | alignment and build a tree with RAxML                                            |           
+sptree_raxml_90                          | Selects COGs present in at least 90% of the target species, make a concatenated  | 1         
+                                         | alignment and build a tree with RAxML                                            |           
+sptree_raxml_85                          | Selects COGs present in at least 85% of the target species, make a concatenated  | 1         
+                                         | alignment and build a tree with RAxML                                            |           
+sptree_raxml_all                         | Selects all COGS regardless of how many species are represented, make a concaten | 1         
+                                         | ated alignment and build a tree with RAxML                                       |           
 </pre>
 </div>
 </div>
@@ -404,7 +397,7 @@ sptree_raxml_all                         | Selects all COGS regardless of how ma
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="o">!</span>ete3 build show standard_raxml
@@ -423,7 +416,7 @@ sptree_raxml_all                         | Selects all COGS regardless of how ma
 <pre><span class="ansiyellow">[genetree_meta_workflow]</span>
 standard_raxml = clustalo_default-none-none-raxml_default
 
-<span class="ansiyellow">[clustalo_default-none-none-raxml_default]</span>
+<span class="ansigreen">[clustalo_default-none-none-raxml_default]</span>
 <span class="ansiyellow">                   _aa_tree_builder</span> = @raxml_default
 <span class="ansiyellow">                        _aa_aligner</span> = @clustalo_default
 <span class="ansiyellow">                    _nt_alg_cleaner</span> = none
@@ -435,11 +428,11 @@ standard_raxml = clustalo_default-none-none-raxml_default
 <span class="ansiyellow">                   _nt_model_tester</span> = none
 <span class="ansiyellow">                            _appset</span> = @builtin_apps
 
-<span class="ansiyellow">[clustalo_default]</span>
+<span class="ansigreen">[clustalo_default]</span>
 <span class="ansiyellow">                              _desc</span> = clustalo with default parameters
 <span class="ansiblue">                               _app = clustalo</span>
 
-<span class="ansiyellow">[raxml_default]</span>
+<span class="ansigreen">[raxml_default]</span>
 <span class="ansiyellow">                              _desc</span> = RAxML with default parameters, GAMMA JTT/GTR and aLRT branch supports.
 <span class="ansiblue">                               _app = raxml</span>
 <span class="ansiyellow">                         _bootstrap</span> = alrt
@@ -478,7 +471,7 @@ standard_raxml = clustalo_default-none-none-raxml_default
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="o">!</span>ete3 build show pmodeltest_soft_ultrafast
@@ -494,7 +487,7 @@ standard_raxml = clustalo_default-none-none-raxml_default
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre><span class="ansiyellow">[pmodeltest_soft_ultrafast]</span>
+<pre><span class="ansigreen">[pmodeltest_soft_ultrafast]</span>
 <span class="ansiyellow">                              _desc</span> = Test JTT,WAG,VT,LG,MtREV models using NJ tree inference and skipping gamma, invariant sites, and frequency site estimation (!G!I!F)
 <span class="ansiblue">                               _app = pmodeltest</span>
 <span class="ansiyellow">                         _aa_models</span> = JTT,WAG,VT,LG,MtREV
